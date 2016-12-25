@@ -1,5 +1,4 @@
-#SampleApp
-#### Save Image To Database 
+# Save Image To Database 
 This sample app demonstrates how to download an image from a url and save it to a local SQLite database.
 
 The [DownloadImageAsync method](https://github.com/brminnick/SaveImageToDatabaseSampleApp/blob/master/SaveImageToDatabaseSampleApp/ViewModel/MainViewModel.cs#L147) shows how to download the image as a byte array from a URL using HttpClient.
