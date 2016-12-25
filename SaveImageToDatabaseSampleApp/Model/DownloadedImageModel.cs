@@ -13,7 +13,7 @@ namespace SaveImageToDatabaseSampleApp
 		[PrimaryKey]
 		public string ImageUrl { get; set;}
 
-		public string PuzzleImageAsBase64String { get; set; }
+		public string DownloadedImageAsBase64String { get; set; }
 
 		public ImageSource DownloadedImageAsImageStreamFromBase64String
 		{
@@ -21,12 +21,12 @@ namespace SaveImageToDatabaseSampleApp
 			{
 				try
 				{
-					if (PuzzleImageAsBase64String == null)
+					if (DownloadedImageAsBase64String == null)
 					{
 						return null;
 					}
 
-					var imageString = PuzzleImageAsBase64String;
+					var imageString = DownloadedImageAsBase64String;
 					var imageByteArray = Convert.FromBase64String(imageString);
 
 					return ImageSource.FromStream(() => new MemoryStream(imageByteArray));

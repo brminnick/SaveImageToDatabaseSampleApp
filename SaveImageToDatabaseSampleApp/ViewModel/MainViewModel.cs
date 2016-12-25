@@ -159,7 +159,7 @@ namespace SaveImageToDatabaseSampleApp
 						var downloadedImageModel = new DownloadedImageModel
 						{
 							ImageUrl = imageUrl,
-							PuzzleImageAsBase64String = downloadedImageBase64String
+							DownloadedImageAsBase64String = downloadedImageBase64String
 						};
 
 						await App.Database.SaveDownloadedImage(downloadedImageModel);
