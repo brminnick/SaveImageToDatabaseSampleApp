@@ -12,10 +12,18 @@ namespace SaveImageToDatabaseSampleApp
 			_viewModel = new MainViewModel();
 			BindingContext = _viewModel;
 
+			var imageUrlLabel = new Label
+			{
+				Text = "Image Url"
+			};
+
 			var imageUrlEntry = new Entry();
 			imageUrlEntry.SetBinding<MainViewModel>(Entry.TextProperty, vm => vm.ImageUrlEntryText);
 
-			var loadImageButton = new Button();
+			var loadImageButton = new Button
+			{
+				Margin = new Thickness(0, 20, 0, 0)
+			};
 			loadImageButton.SetBinding<MainViewModel>(IsEnabledProperty, vm => vm.IsLoadImageButtonEnabled);
 			loadImageButton.SetBinding<MainViewModel>(Button.CommandProperty, vm => vm.LoadImageButtonTapped);
 			loadImageButton.SetBinding<MainViewModel>(Button.TextProperty, vm => vm.DownloadImageButtonText);
@@ -30,9 +38,12 @@ namespace SaveImageToDatabaseSampleApp
 
 			Padding = new Thickness(20);
 
+			Title = "Download Images";
+
 			Content = new StackLayout
 			{
 				Children ={
+					imageUrlLabel,
 					imageUrlEntry,
 					loadImageButton,
 					downloadedImage,
@@ -54,7 +65,7 @@ namespace SaveImageToDatabaseSampleApp
 			base.OnDisappearing();
 
 			_viewModel.ImageDownloadFailed -= HandleImageDownloadFailed;
-			
+
 		}
 
 		void HandleImageDownloadFailed(object sender, RetrievingDataFailureEventArgs e)

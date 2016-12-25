@@ -113,7 +113,7 @@ namespace SaveImageToDatabaseSampleApp
 		{
 			await RefreshDataAsync();
 
-			if (IsUrlInDatabase(ImageUrlEntryText))
+			if (IsUrlWithNonNullImageInDatabase(ImageUrlEntryText))
 				DownloadImageButtonText = _loadImageFromDatabaseButtonText;
 			else
 				DownloadImageButtonText = _downloadImageFromUrlButtonText;
@@ -121,11 +121,14 @@ namespace SaveImageToDatabaseSampleApp
 			IsLoadImageButtonEnabled = true;
 		}
 
-		bool IsUrlInDatabase(string url)
+		bool IsUrlWithNonNullImageInDatabase(string url)
 		{
 			foreach (DownloadedImageModel downloadedImageModel in DownloadedImageModelList)
 			{
-				if (downloadedImageModel.ImageUrl.ToLower().Equals(url))
+				var doesUrlMatchExistingUrl = downloadedImageModel.ImageUrl.ToLower().Equals(url.ToLower());
+				var isBase64StringNull = string.IsNullOrEmpty(downloadedImageModel.DownloadedImageAsBase64String);
+
+				if (doesUrlMatchExistingUrl && !isBase64StringNull)
 					return true;
 			}
 
@@ -173,7 +176,7 @@ namespace SaveImageToDatabaseSampleApp
 					}
 				}
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				OnImageDownloadFailed(e.Message);
 			}
@@ -192,7 +195,7 @@ namespace SaveImageToDatabaseSampleApp
 
 		void OnImageDownloadFailed(string failureMessage)
 		{
-			ImageDownloadFailed?.Invoke(null, new RetrievingDataFailureEventArgs(failureMessage));
+			ImageDownloadFailed?.Invoke(this, new RetrievingDataFailureEventArgs(failureMessage));
 		}
 		#endregion
 	}
