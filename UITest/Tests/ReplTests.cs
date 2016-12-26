@@ -10,7 +10,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
 		{
 		}
 
-		//[Ignore]
+		[Ignore]
 		[Test]
 		public void Repl()
 		{

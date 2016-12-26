@@ -29,8 +29,8 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Pages\MainPage.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Pages\DownloadImagePage.cs" />
+    <Compile Include="ViewModel\DownloadImageViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="Model\DownloadedImageModel.cs" />
     <Compile Include="Services\DownloadedImageModelDatabase.cs" />
