@@ -11,7 +11,7 @@ using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp
 {
-	public class MainViewModel : BaseViewModel
+	public class DownloadImageViewModel : BaseViewModel
 	{
 		#region Constant Fields
 		const int _downloadImageTimeoutInSeconds = 15;
@@ -24,12 +24,12 @@ namespace SaveImageToDatabaseSampleApp
 		string _imageUrlEntryText = @"https://www.xamarin.com/content/images/pages/branding/assets/xamarin-logo.png";
 		string _downloadImageButtonText;
 		ImageSource _downloadedImageSource;
-		ICommand _loadImageButtonTapped;
+		ICommand _loadImageButtonTapped, _clearImageButtonTapped;
 		List<DownloadedImageModel> _imageDatabaseModelList;
 		#endregion
 
 		#region Constructors
-		public MainViewModel()
+		public DownloadImageViewModel()
 		{
 			Task.Run(async () =>
 			{
@@ -50,7 +50,7 @@ namespace SaveImageToDatabaseSampleApp
 			set { SetProperty(ref _isImageDownloading, value); }
 		}
 
-		public bool IsImageVisible
+		public bool AreImageAndClearButtonVisible
 		{
 			get { return _isImageVisible; }
 			set { SetProperty(ref _isImageVisible, value); }
@@ -89,7 +89,12 @@ namespace SaveImageToDatabaseSampleApp
 		public ICommand LoadImageButtonTapped =>
 		_loadImageButtonTapped ??
 		(_loadImageButtonTapped = new Command(async () => await ExecuteLoadImageButtonTappedAsync()));
-		#endregion
+
+		public ICommand ClearImageButtonTapped =>
+		_clearImageButtonTapped ??
+		(_clearImageButtonTapped = new Command(ExecuteClearImageButtonTapped));
+
+	#endregion
 
 		#region Events
 
@@ -102,6 +107,11 @@ namespace SaveImageToDatabaseSampleApp
 				await LoadImageFromDatabaseAsync(ImageUrlEntryText);
 			else
 				await DownloadImageAsync(ImageUrlEntryText);
+		}
+
+		void ExecuteClearImageButtonTapped(object obj)
+		{
+			AreImageAndClearButtonVisible = false;
 		}
 
 		async Task RefreshDataAsync()
@@ -146,7 +156,7 @@ namespace SaveImageToDatabaseSampleApp
 
 			DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
 
-			IsImageVisible = true;
+			AreImageAndClearButtonVisible = true;
 		}
 
 		async Task DownloadImageAsync(string imageUrl)
@@ -178,7 +188,7 @@ namespace SaveImageToDatabaseSampleApp
 						await App.Database.SaveDownloadedImage(downloadedImageModel);
 
 						DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
-						IsImageVisible = true;
+						AreImageAndClearButtonVisible = true;
 					}
 					else
 					{

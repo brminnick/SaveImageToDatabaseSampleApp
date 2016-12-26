@@ -37,6 +37,13 @@ namespace SaveImageToDatabaseSampleApp.UITest
 			//Assert
 			Assert.IsTrue(MainPage.IsDownloadedImageShown);
 			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, MainPage.LoadImageButtonText);
+
+			//Act
+			MainPage.TapClearImageButton();
+
+			//Assert
+			Assert.IsFalse(MainPage.IsDownloadedImageShown);
+			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, MainPage.LoadImageButtonText);
 		}
 
 		[Test]

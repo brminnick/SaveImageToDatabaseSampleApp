@@ -13,7 +13,11 @@ namespace SaveImageToDatabaseSampleApp.UITest
 	public class MainPage : BasePage
 	{
 		#region Constant Fields
-		readonly Query _loadImageButton, _imageUrlEntry, _downloadedImage, _isDownloadingActivityIndicator;
+		readonly Query _loadImageButton;
+		readonly Query _imageUrlEntry;
+		readonly Query _downloadedImage;
+		readonly Query _isDownloadingActivityIndicator;
+		readonly Query _clearImageButton;
 		#endregion
 
 		#region Constructors
@@ -23,6 +27,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
 			_imageUrlEntry = x => x.Marked(AutomationIdConstants.ImageUrlEntry);
 			_downloadedImage = x => x.Marked(AutomationIdConstants.DownloadedImage);
 			_isDownloadingActivityIndicator = x => x.Marked(AutomationIdConstants.IsDownloadingActivityIndicator);
+			_clearImageButton = x => x.Marked(AutomationIdConstants.ClearImageButton);
 		}
 		#endregion
 
@@ -62,7 +67,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
 		public async Task WaitForNoIsDownloadingActivityIndicator(int timeoutInSeconds = 60)
 		{
 			await Task.Delay(1000);
-			app.WaitForNoElement(_isDownloadingActivityIndicator,"Is Downloading Activity Indicator Never Disappeared",TimeSpan.FromSeconds(timeoutInSeconds));
+			app.WaitForNoElement(_isDownloadingActivityIndicator, "Is Downloading Activity Indicator Never Disappeared", TimeSpan.FromSeconds(timeoutInSeconds));
 			app.Screenshot("Is Downloading Activity Indicator Dissapeared");
 		}
 
@@ -72,9 +77,15 @@ namespace SaveImageToDatabaseSampleApp.UITest
 			app.Screenshot("Tapped Ok On Error Prompt");
 		}
 
+		public void TapClearImageButton()
+		{
+			app.Tap(_clearImageButton);
+			app.Screenshot("Clear Image Button Tapped");
+		}
+
 		string GetLoadImageButtonText()
 		{
-			if(IsAndroid)
+			if (IsAndroid)
 				return app.Query(_loadImageButton)?.FirstOrDefault()?.Text;
 
 			return app.Query(_loadImageButton)?.FirstOrDefault()?.Label;
