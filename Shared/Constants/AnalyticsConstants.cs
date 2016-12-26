@@ -11,6 +11,8 @@ namespace SaveImageToDatabaseSampleApp.Shared
 		#region Main
 		public const string ClearButtonTapped = "Clear Button Tapped";
 		public const string DownloadImage = "Download Image";
+		public const string ImageDownloadSuccessful = "Image Download Successful";
+		public const string ImageDownloadFailed = "Image Download Failed";
 		public const string ImageUrl = "Image Url";
 		public const string LoadImageFromDatabase = "Load Image From Database";
 		#endregion

@@ -94,7 +94,7 @@ namespace SaveImageToDatabaseSampleApp
 		_clearImageButtonTapped ??
 		(_clearImageButtonTapped = new Command(ExecuteClearImageButtonTapped));
 
-	#endregion
+		#endregion
 
 		#region Events
 
@@ -167,11 +167,6 @@ namespace SaveImageToDatabaseSampleApp
 
 			SetIsImageDownloading(true);
 
-			AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
-			{
-				{ AnalyticsConstants.ImageUrl, imageUrl }
-			});
-
 			try
 			{
 				using (var httpResponse = await _httpClient.GetAsync(imageUrl))
@@ -191,15 +186,28 @@ namespace SaveImageToDatabaseSampleApp
 
 						DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
 						AreImageAndClearButtonVisible = true;
+
+						AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+						{
+							{ AnalyticsConstants.ImageDownloadSuccessful, imageUrl }
+						});
 					}
 					else
 					{
+						AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+						{
+							{ AnalyticsConstants.ImageDownloadFailed, imageUrl }
+						});
 						OnImageDownloadFailed("Invalid Url");
 					}
 				}
 			}
 			catch (Exception e)
 			{
+				AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+				{
+					{ AnalyticsConstants.ImageDownloadFailed, imageUrl }
+				});
 				OnImageDownloadFailed(e.Message);
 			}
 			finally
