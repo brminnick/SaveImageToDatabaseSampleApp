@@ -59,15 +59,18 @@ namespace SaveImageToDatabaseSampleApp
 
 			Title = "Load Images";
 
-			Content = new StackLayout
+			Content = new ScrollView
 			{
-				Children ={
-					imageUrlLabel,
-					imageUrlEntry,
-					loadImageButton,
-					downloadedImage,
-					clearImageButton,
-					isDownloadingActivityIndicator
+				Content = new StackLayout
+				{
+					Children ={
+						imageUrlLabel,
+						imageUrlEntry,
+						loadImageButton,
+						downloadedImage,
+						clearImageButton,
+						isDownloadingActivityIndicator
+					}
 				}
 			};
 		}

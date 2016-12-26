@@ -51,6 +51,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
 		#region Methods
 		public void EnterUrl(string url)
 		{
+			app.ScrollUpTo(_imageUrlEntry);
 			app.Tap(_imageUrlEntry);
 			app.ClearText();
 			app.EnterText(url);
@@ -60,6 +61,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
 
 		public void TapLoadImageButton()
 		{
+			app.ScrollUpTo(_imageUrlEntry);
 			app.Tap(_loadImageButton);
 			app.Screenshot("Tapped Load Image Button");
 		}
@@ -79,12 +81,15 @@ namespace SaveImageToDatabaseSampleApp.UITest
 
 		public void TapClearImageButton()
 		{
+			app.ScrollDownTo(_clearImageButton);
 			app.Tap(_clearImageButton);
 			app.Screenshot("Clear Image Button Tapped");
 		}
 
 		string GetLoadImageButtonText()
 		{
+			app.ScrollUpTo(_loadImageButton);
+
 			if (IsAndroid)
 				return app.Query(_loadImageButton)?.FirstOrDefault()?.Text;
 
