@@ -11,7 +11,7 @@ using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp
 {
-	public class DownloadImageViewModel : BaseViewModel
+	public class LoadImageViewModel : BaseViewModel
 	{
 		#region Constant Fields
 		const int _downloadImageTimeoutInSeconds = 15;
@@ -29,7 +29,7 @@ namespace SaveImageToDatabaseSampleApp
 		#endregion
 
 		#region Constructors
-		public DownloadImageViewModel()
+		public LoadImageViewModel()
 		{
 			Task.Run(async () =>
 			{
@@ -111,6 +111,8 @@ namespace SaveImageToDatabaseSampleApp
 
 		void ExecuteClearImageButtonTapped(object obj)
 		{
+			AnalyticsHelpers.TrackEvent(AnalyticsConstants.ClearButtonTapped);
+
 			AreImageAndClearButtonVisible = false;
 		}
 

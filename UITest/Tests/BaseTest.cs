@@ -11,7 +11,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
 		protected IApp app;
 		protected Platform platform;
 
-		protected MainPage MainPage;
+		protected LoadImagePage MainPage;
 
 		protected BaseTest(Platform platform)
 		{
@@ -23,7 +23,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
 		{
 			app = AppInitializer.StartApp(platform);
 
-			MainPage = new MainPage(app, platform);
+			MainPage = new LoadImagePage(app, platform);
 
 			app.Screenshot("App Launched");
 		}

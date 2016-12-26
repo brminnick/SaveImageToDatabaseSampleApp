@@ -36,7 +36,7 @@
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
     <Compile Include="Tests\MainPageTests.cs" />
-    <Compile Include="Pages\MainPage.cs" />
+    <Compile Include="Pages\LoadImagePage.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\ReplTests.cs" />

@@ -9,6 +9,7 @@ namespace SaveImageToDatabaseSampleApp.Shared
 		#endregion
 
 		#region Main
+		public const string ClearButtonTapped = "Clear Button Tapped";
 		public const string DownloadImage = "Download Image";
 		public const string ImageUrl = "Image Url";
 		public const string LoadImageFromDatabase = "Load Image From Database";

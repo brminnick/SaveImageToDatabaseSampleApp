@@ -13,7 +13,7 @@ namespace SaveImageToDatabaseSampleApp
 		#region Constructors
 		public App()
 		{
-			MainPage = new NavigationPage(new DownloadImagePage())
+			MainPage = new NavigationPage(new LoadImagePage())
 			{
                 BarBackgroundColor = Color.FromHex("3498db"),
 				BarTextColor = Color.White

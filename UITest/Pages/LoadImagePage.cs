@@ -10,7 +10,7 @@ using Query = System.Func<Xamarin.UITest.Queries.AppQuery, Xamarin.UITest.Querie
 
 namespace SaveImageToDatabaseSampleApp.UITest
 {
-	public class MainPage : BasePage
+	public class LoadImagePage : BasePage
 	{
 		#region Constant Fields
 		readonly Query _loadImageButton;
@@ -21,7 +21,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
 		#endregion
 
 		#region Constructors
-		public MainPage(IApp app, Platform platform) : base(app, platform)
+		public LoadImagePage(IApp app, Platform platform) : base(app, platform)
 		{
 			_loadImageButton = x => x.Marked(AutomationIdConstants.LoadImageButton);
 			_imageUrlEntry = x => x.Marked(AutomationIdConstants.ImageUrlEntry);
