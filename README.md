@@ -1,3 +1,5 @@
+[![Build Status](https://www.bitrise.io/app/8e6b6ccd01b546e4.svg?token=Ggk4zsslVPS4-UBcR74NWA&branch=master)](https://www.bitrise.io/app/8e6b6ccd01b546e4)
+
 # Save Image To Database 
 This sample app demonstrates how to download an image from a url and save it to a local SQLite database.
 
