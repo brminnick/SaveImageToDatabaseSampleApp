@@ -7,4 +7,4 @@ The [DownloadImageAsync method](https://github.com/brminnick/SaveImageToDatabase
 
 The [database model](https://github.com/brminnick/SaveImageToDatabaseSampleApp/blob/master/SaveImageToDatabaseSampleApp/Model/DownloadedImageModel.cs) stores the image as a Base64 string. When the image is retrieved from the database, it is converted from a Base64 string to a Xamarin.Forms.ImageSource.
 
-https://github.com/brminnick/SaveImageToDatabaseSampleApp/blob/master/Demos/UI%20Demo.gif
+![UI Demo](./Demos/UI%20Demo.gif
