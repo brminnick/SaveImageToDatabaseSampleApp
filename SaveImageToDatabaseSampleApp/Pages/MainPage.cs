@@ -1,5 +1,6 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+
+using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp
 {
@@ -17,28 +18,38 @@ namespace SaveImageToDatabaseSampleApp
 				Text = "Image Url"
 			};
 
-			var imageUrlEntry = new Entry();
+			var imageUrlEntry = new Entry
+			{
+				AutomationId = AutomationIdConstants.ImageUrlEntry
+			};
 			imageUrlEntry.SetBinding<MainViewModel>(Entry.TextProperty, vm => vm.ImageUrlEntryText);
 
 			var loadImageButton = new Button
 			{
-				Margin = new Thickness(0, 20, 0, 0)
+				Margin = new Thickness(0, 20, 0, 0),
+				AutomationId = AutomationIdConstants.LoadImageButton
 			};
 			loadImageButton.SetBinding<MainViewModel>(IsEnabledProperty, vm => vm.IsLoadImageButtonEnabled);
 			loadImageButton.SetBinding<MainViewModel>(Button.CommandProperty, vm => vm.LoadImageButtonTapped);
 			loadImageButton.SetBinding<MainViewModel>(Button.TextProperty, vm => vm.DownloadImageButtonText);
 
-			var downloadedImage = new Image();
+			var downloadedImage = new Image
+			{
+				AutomationId = AutomationIdConstants.DownloadedImage
+			};
 			downloadedImage.SetBinding<MainViewModel>(IsVisibleProperty, vm => vm.IsImageVisible);
 			downloadedImage.SetBinding<MainViewModel>(Image.SourceProperty, vm => vm.DownloadedImageSource);
 
-			var isDownloadingActivityIndicator = new ActivityIndicator();
+			var isDownloadingActivityIndicator = new ActivityIndicator
+			{
+				AutomationId = AutomationIdConstants.IsDownloadingActivityIndicator
+			};
 			isDownloadingActivityIndicator.SetBinding<MainViewModel>(IsVisibleProperty, vm => vm.IsImageDownloading);
 			isDownloadingActivityIndicator.SetBinding<MainViewModel>(ActivityIndicator.IsRunningProperty, vm => vm.IsImageDownloading);
 
 			Padding = new Thickness(20);
 
-			Title = "Download Images";
+			Title = "Load Images";
 
 			Content = new StackLayout
 			{

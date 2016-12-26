@@ -7,13 +7,13 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
+using SaveImageToDatabaseSampleApp.Shared;
+
 namespace SaveImageToDatabaseSampleApp
 {
 	public class MainViewModel : BaseViewModel
 	{
 		#region Constant Fields
-		const string _loadImageFromDatabaseButtonText = "Load Image From Database";
-		const string _downloadImageFromUrlButtonText = "Download Image From Url";
 		const int _downloadImageTimeoutInSeconds = 15;
 
 		readonly HttpClient _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds) };
@@ -22,7 +22,7 @@ namespace SaveImageToDatabaseSampleApp
 		#region Fields
 		bool _isImageDownloading, _isImageVisible, _isLoadImageButtonEnabled;
 		string _imageUrlEntryText = @"https://www.xamarin.com/content/images/pages/branding/assets/xamarin-logo.png";
-		string _downloadImageButtonText = "Download Image";
+		string _downloadImageButtonText;
 		ImageSource _downloadedImageSource;
 		ICommand _loadImageButtonTapped;
 		List<DownloadedImageModel> _imageDatabaseModelList;
@@ -38,9 +38,9 @@ namespace SaveImageToDatabaseSampleApp
 			});
 		}
 		#endregion
-		public event EventHandler<RetrievingDataFailureEventArgs> ImageDownloadFailed;
-		#region Events
 
+		#region Events
+		public event EventHandler<RetrievingDataFailureEventArgs> ImageDownloadFailed;
 		#endregion
 
 		#region Properties
@@ -98,8 +98,8 @@ namespace SaveImageToDatabaseSampleApp
 		#region Methods
 		async Task ExecuteLoadImageButtonTappedAsync()
 		{
-			if (DownloadImageButtonText.Equals(_loadImageFromDatabaseButtonText))
-				await LoadImageFromDatabase(ImageUrlEntryText);
+			if (DownloadImageButtonText.Equals(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText))
+				await LoadImageFromDatabaseAsync(ImageUrlEntryText);
 			else
 				await DownloadImageAsync(ImageUrlEntryText);
 		}
@@ -114,9 +114,9 @@ namespace SaveImageToDatabaseSampleApp
 			await RefreshDataAsync();
 
 			if (IsUrlWithNonNullImageInDatabase(ImageUrlEntryText))
-				DownloadImageButtonText = _loadImageFromDatabaseButtonText;
+				DownloadImageButtonText = LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText;
 			else
-				DownloadImageButtonText = _downloadImageFromUrlButtonText;
+				DownloadImageButtonText = LoadImageButtonTextConstants.DownloadImageFromUrlButtonText;
 
 			IsLoadImageButtonEnabled = true;
 		}
@@ -135,8 +135,13 @@ namespace SaveImageToDatabaseSampleApp
 			return false;
 		}
 
-		async Task LoadImageFromDatabase(string imageUrl)
+		async Task LoadImageFromDatabaseAsync(string imageUrl)
 		{
+			AnalyticsHelpers.TrackEvent(AnalyticsConstants.LoadImageFromDatabase, new Dictionary<string, string>
+			{
+				{ AnalyticsConstants.ImageUrl, imageUrl }
+			});
+
 			var downloadedImageModel = await App.Database.GetDownloadedImageAsync(imageUrl);
 
 			DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
@@ -149,6 +154,11 @@ namespace SaveImageToDatabaseSampleApp
 			byte[] downloadedImage;
 
 			SetIsImageDownloading(true);
+
+			AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+			{
+				{ AnalyticsConstants.ImageUrl, imageUrl }
+			});
 
 			try
 			{

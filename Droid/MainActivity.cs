@@ -1,12 +1,8 @@
-﻿using System;
-
+﻿using Android.OS;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.OS;
+
+using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp.Droid
 {
@@ -17,6 +13,8 @@ namespace SaveImageToDatabaseSampleApp.Droid
 		{
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
+
+			AnalyticsHelpers.Start(AnalyticsConstants.MobileCenterAndroidAPIKey);
 
 			base.OnCreate(bundle);
 
