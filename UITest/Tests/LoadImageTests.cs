@@ -7,9 +7,9 @@ using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp.UITest
 {
-	public class MainPageTests : BaseTest
+	public class LoadImageTests : BaseTest
 	{
-		public MainPageTests(Platform platform) : base(platform)
+		public LoadImageTests(Platform platform) : base(platform)
 		{
 		}
 
