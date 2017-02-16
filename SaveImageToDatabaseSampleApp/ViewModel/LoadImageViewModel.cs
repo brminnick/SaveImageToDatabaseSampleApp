@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net;
+using System.Linq;
 using System.Net.Http;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -15,8 +17,6 @@ namespace SaveImageToDatabaseSampleApp
 	{
 		#region Constant Fields
 		const int _downloadImageTimeoutInSeconds = 15;
-
-		readonly HttpClient _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds) };
 		#endregion
 
 		#region Fields
@@ -24,6 +24,7 @@ namespace SaveImageToDatabaseSampleApp
 		string _imageUrlEntryText = @"https://www.xamarin.com/content/images/pages/branding/assets/xamarin-logo.png";
 		string _downloadImageButtonText;
 		ImageSource _downloadedImageSource;
+		HttpClient _client;
 		ICommand _loadImageButtonTapped, _clearImageButtonTapped;
 		List<DownloadedImageModel> _imageDatabaseModelList;
 		#endregion
@@ -44,6 +45,12 @@ namespace SaveImageToDatabaseSampleApp
 		#endregion
 
 		#region Properties
+		public ICommand LoadImageButtonTapped => _loadImageButtonTapped ??
+			(_loadImageButtonTapped = new Command(async () => await ExecuteLoadImageButtonTappedAsync()));
+
+		public ICommand ClearImageButtonTapped => _clearImageButtonTapped ??
+			(_clearImageButtonTapped = new Command(ExecuteClearImageButtonTapped));
+
 		public bool IsImageDownloading
 		{
 			get { return _isImageDownloading; }
@@ -86,13 +93,7 @@ namespace SaveImageToDatabaseSampleApp
 			set { SetProperty(ref _imageDatabaseModelList, value); }
 		}
 
-		public ICommand LoadImageButtonTapped =>
-		_loadImageButtonTapped ??
-		(_loadImageButtonTapped = new Command(async () => await ExecuteLoadImageButtonTappedAsync()));
-
-		public ICommand ClearImageButtonTapped =>
-		_clearImageButtonTapped ??
-		(_clearImageButtonTapped = new Command(ExecuteClearImageButtonTapped));
+		HttpClient Client => _client ?? (_client = CreateHttpClient());
 
 		#endregion
 
@@ -135,16 +136,12 @@ namespace SaveImageToDatabaseSampleApp
 
 		bool IsUrlWithNonNullImageInDatabase(string url)
 		{
-			foreach (DownloadedImageModel downloadedImageModel in DownloadedImageModelList)
-			{
-				var doesUrlMatchExistingUrl = downloadedImageModel.ImageUrl.ToLower().Equals(url.ToLower());
-				var isBase64StringNull = string.IsNullOrEmpty(downloadedImageModel.DownloadedImageAsBase64String);
+			var downloadedImageModelWithMatchingUrl = DownloadedImageModelList.FirstOrDefault(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
+			var doesDownloadedImageModelWithMatchingUrlExist = downloadedImageModelWithMatchingUrl != null;
 
-				if (doesUrlMatchExistingUrl && !isBase64StringNull)
-					return true;
-			}
+			var isBase64StringNull = string.IsNullOrEmpty(downloadedImageModelWithMatchingUrl?.DownloadedImageAsBase64String);
 
-			return false;
+			return doesDownloadedImageModelWithMatchingUrlExist && !isBase64StringNull;
 		}
 
 		async Task LoadImageFromDatabaseAsync(string imageUrl)
@@ -169,7 +166,7 @@ namespace SaveImageToDatabaseSampleApp
 
 			try
 			{
-				using (var httpResponse = await _httpClient.GetAsync(imageUrl))
+				using (var httpResponse = await Client.GetAsync(imageUrl))
 				{
 					if (httpResponse.StatusCode == HttpStatusCode.OK)
 					{
@@ -215,6 +212,23 @@ namespace SaveImageToDatabaseSampleApp
 				SetIsImageDownloading(false);
 				await UpdateDownloadButtonText();
 			}
+		}
+
+		HttpClient CreateHttpClient()
+		{
+			HttpClient client;
+
+			if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+				client = new HttpClient { Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds) };
+			else
+				client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip })
+				{
+					Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds)
+				};
+
+			client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+
+			return client;
 		}
 
 		void SetIsImageDownloading(bool isImageDownloading)
