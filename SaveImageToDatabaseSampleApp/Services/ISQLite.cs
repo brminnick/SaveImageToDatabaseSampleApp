@@ -4,7 +4,7 @@ namespace SaveImageToDatabaseSampleApp
 {
 	public interface ISQLite
 	{
-		SQLiteConnection GetConnection();
+		SQLiteAsyncConnection GetConnection();
 	}
 }
 

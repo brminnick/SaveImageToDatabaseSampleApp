@@ -8,60 +8,53 @@ using Xamarin.Forms;
 
 namespace SaveImageToDatabaseSampleApp
 {
-	public class DownloadedImageModelDatabase
+	public static class DownloadedImageModelDatabase
 	{
-		static readonly object _locker = new object();
+		#region Constant Fields
+		static readonly SQLiteAsyncConnection _database = DependencyService.Get<ISQLite>().GetConnection();
+		#endregion
 
-		readonly SQLiteConnection _database;
+		#region Fields
+		static bool _isInitialized;
+		#endregion
 
-		public DownloadedImageModelDatabase()
+		#region Methods
+		public static async Task<List<DownloadedImageModel>> GetAllDownloadedImagesAsync()
 		{
-			_database = DependencyService.Get<ISQLite>().GetConnection();
-			// create the tables
-			_database.CreateTable<DownloadedImageModel>();
+			if (!_isInitialized)
+				await InitializeDatabase();
+			
+			return await _database.Table<DownloadedImageModel>().ToListAsync();
 		}
 
-		public async Task<List<DownloadedImageModel>> GetAllDownloadedImagesAsync()
+		public static async Task<DownloadedImageModel> GetDownloadedImageAsync(string imageUrl)
 		{
-			return await Task.Run(() =>
+			if (!_isInitialized)
+				await InitializeDatabase();
+			
+			return await _database.Table<DownloadedImageModel>().Where(x => x.ImageUrl.Equals(imageUrl)).FirstOrDefaultAsync();
+		}
+
+		public static async Task SaveDownloadedImage(DownloadedImageModel downloadedImage)
+		{
+			if (!_isInitialized)
+				await InitializeDatabase();
+			
+			if (await GetDownloadedImageAsync(downloadedImage.ImageUrl) != null)
 			{
-				lock (_locker)
-				{
-					return _database.Table<DownloadedImageModel>().ToList();
-				}
-			});
+				await _database.UpdateAsync(downloadedImage);
+			}
+			else {
+				await _database.InsertAsync(downloadedImage);
+			}
 		}
 
-		public async Task<DownloadedImageModel> GetDownloadedImageAsync(string imageUrl)
+		static async Task InitializeDatabase()
 		{
-			return await Task.Run(() =>
-			{
-				lock (_locker)
-				{
-					return _database.Table<DownloadedImageModel>().FirstOrDefault(x => x.ImageUrl == imageUrl);
-				}
-			});
+			await _database.CreateTableAsync<DownloadedImageModel>();
+			_isInitialized = true;
 		}
-
-		public async Task SaveDownloadedImage(DownloadedImageModel downloadedImage)
-		{
-			await Task.Run(async () =>
-			{
-				if (await GetDownloadedImageAsync(downloadedImage.ImageUrl) != null)
-				{
-					lock (_locker)
-					{
-						_database.Update(downloadedImage);
-					}
-				}
-				else {
-					lock (_locker)
-					{
-						_database.Insert(downloadedImage);
-					}
-				}
-			});
-		}
+		#endregion
 	}
 }
 

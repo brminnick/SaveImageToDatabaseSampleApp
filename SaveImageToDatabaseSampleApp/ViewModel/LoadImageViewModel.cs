@@ -118,7 +118,7 @@ namespace SaveImageToDatabaseSampleApp
 
 		async Task RefreshDataAsync()
 		{
-			DownloadedImageModelList = await App.Database.GetAllDownloadedImagesAsync();
+			DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync();
 		}
 
 		async Task UpdateDownloadButtonText()
@@ -154,7 +154,7 @@ namespace SaveImageToDatabaseSampleApp
 				{ AnalyticsConstants.ImageUrl, imageUrl }
 			});
 
-			var downloadedImageModel = await App.Database.GetDownloadedImageAsync(imageUrl);
+			var downloadedImageModel = await DownloadedImageModelDatabase.GetDownloadedImageAsync(imageUrl);
 
 			DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
 
@@ -182,7 +182,7 @@ namespace SaveImageToDatabaseSampleApp
 							DownloadedImageAsBase64String = downloadedImageBase64String
 						};
 
-						await App.Database.SaveDownloadedImage(downloadedImageModel);
+						await DownloadedImageModelDatabase.SaveDownloadedImage(downloadedImageModel);
 
 						DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
 						AreImageAndClearButtonVisible = true;
