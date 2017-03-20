@@ -1,0 +1,15 @@
+﻿{
+  "dependencies": {
+    "Microsoft.Azure.Mobile": "0.7.0",
+    "Microsoft.Azure.Mobile.Analytics": "0.7.0",
+    "Microsoft.Azure.Mobile.Crashes": "0.7.0",
+    "sqlite-net-pcl": "1.3.1",
+    "SQLitePCLRaw.bundle_green": "1.1.2",
+    "SQLitePCLRaw.core": "1.1.2",
+    "Xam.Plugins.Forms.CustomReturnEntry": "3.0.0-pre2",
+    "Xamarin.Forms": "2.3.3.193"
+  },
+  "frameworks": {
+    ".NETPortable,Version=v4.5,Profile=Profile111": {}
+  }
+}

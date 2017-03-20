@@ -19,8 +19,10 @@ namespace SaveImageToDatabaseSampleApp.UITest
 
 		}
 
+		[TestCase(false)]
+		[TestCase(true)]
 		[Test]
-		public async Task DownloadImageFromValidUrl()
+		public async Task DownloadImageFromValidUrl(bool shouldPressKeyboardReturnButton)
 		{
 			//Arrange
 
@@ -31,7 +33,16 @@ namespace SaveImageToDatabaseSampleApp.UITest
 			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, MainPage.LoadImageButtonText);
 
 			//Act
-			MainPage.TapLoadImageButton();
+			switch (shouldPressKeyboardReturnButton)
+			{
+				case true:
+					MainPage.TapKeyboardEnterButton();
+					break;
+
+				case false:
+					MainPage.TapLoadImageButton();
+					break;
+			}
 			await MainPage.WaitForNoIsDownloadingActivityIndicator();
 
 			//Assert
@@ -46,8 +57,10 @@ namespace SaveImageToDatabaseSampleApp.UITest
 			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, MainPage.LoadImageButtonText);
 		}
 
+		[TestCase(false)]
+		[TestCase(true)]
 		[Test]
-		public async Task DownloadImageFromInvalidUrl()
+		public async Task DownloadImageFromInvalidUrl(bool shouldPressKeyboardReturnButton)
 		{
 			//Arrange
 
@@ -58,7 +71,17 @@ namespace SaveImageToDatabaseSampleApp.UITest
 			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, MainPage.LoadImageButtonText);
 
 			//Act
-			MainPage.TapLoadImageButton();
+			switch (shouldPressKeyboardReturnButton)
+			{
+				case true:
+					MainPage.TapKeyboardEnterButton();
+					break;
+				
+				case false:
+					MainPage.TapLoadImageButton();
+					break;
+			}
+
 			await MainPage.WaitForNoIsDownloadingActivityIndicator();
 			MainPage.TapOkOnErrorPrompt();
 

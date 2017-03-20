@@ -51,12 +51,18 @@ namespace SaveImageToDatabaseSampleApp.UITest
 		#region Methods
 		public void EnterUrl(string url)
 		{
-			app.ScrollUpTo(_imageUrlEntry);
-			app.Tap(_imageUrlEntry);
-			app.ClearText();
-			app.EnterText(url);
+			EnterText(_imageUrlEntry, url);
 			app.DismissKeyboard();
 			app.Screenshot($"Entered Test: {url}");
+		}
+
+		public void TapKeyboardEnterButton()
+		{
+			app.ScrollUpTo(_imageUrlEntry);
+			app.Tap(_imageUrlEntry);
+			app.PressEnter();
+			app.DismissKeyboard();
+			app.Screenshot("Tapped Keyboard Return Button");
 		}
 
 		public void TapLoadImageButton()
@@ -88,12 +94,26 @@ namespace SaveImageToDatabaseSampleApp.UITest
 
 		string GetLoadImageButtonText()
 		{
-			app.ScrollUpTo(_loadImageButton);
-
 			if (IsAndroid)
 				return app.Query(_loadImageButton)?.FirstOrDefault()?.Text;
 
 			return app.Query(_loadImageButton)?.FirstOrDefault()?.Label;
+		}
+
+		void EnterUrlAndTapKeyboardReturnButton(string url)
+		{
+			EnterText(_imageUrlEntry, url);
+			app.Screenshot($"Entered Test: {url}");
+			app.PressEnter();
+			app.Screenshot($"Pressed Keyboard Return Button");
+			app.DismissKeyboard();
+		}
+
+		void EnterText(Query query, string url)
+		{
+			app.ScrollUpTo(query);
+			app.ClearText(query);
+			app.EnterText(query, url);
 		}
 		#endregion
 	}
