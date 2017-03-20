@@ -39,9 +39,6 @@
     <Compile Include="Helpers\AnalyticsHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="ViewModel\" />
     <Folder Include="Model\" />
