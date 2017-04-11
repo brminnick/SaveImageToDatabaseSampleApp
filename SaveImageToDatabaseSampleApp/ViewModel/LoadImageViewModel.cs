@@ -45,6 +45,8 @@ namespace SaveImageToDatabaseSampleApp
 		#endregion
 
 		#region Properties
+		HttpClient Client => _client ?? (_client = CreateHttpClient());
+
 		public ICommand LoadImageButtonTapped => _loadImageButtonTapped ??
 			(_loadImageButtonTapped = new Command(async () => await ExecuteLoadImageButtonTappedAsync()));
 
@@ -92,9 +94,6 @@ namespace SaveImageToDatabaseSampleApp
 			get { return _imageDatabaseModelList; }
 			set { SetProperty(ref _imageDatabaseModelList, value); }
 		}
-
-		HttpClient Client => _client ?? (_client = CreateHttpClient());
-
 		#endregion
 
 		#region Events
@@ -218,13 +217,19 @@ namespace SaveImageToDatabaseSampleApp
 		{
 			HttpClient client;
 
-			if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
-				client = new HttpClient { Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds) };
-			else
-				client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip })
-				{
-					Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds)
-				};
+			switch (Device.RuntimePlatform)
+			{
+				case Device.iOS:
+				case Device.Android:
+					client = new HttpClient { Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds) };
+					break;
+				default:
+					client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip })
+					{
+						Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds)
+					};
+					break;
+			}
 
 			client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
 
