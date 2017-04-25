@@ -165,7 +165,7 @@ namespace SaveImageToDatabaseSampleApp
 
 			try
 			{
-				using (var httpResponse = await Client.GetAsync(imageUrl))
+				using (var httpResponse = await Client.GetAsync(imageUrl).ConfigureAwait(false))
 				{
 					if (httpResponse.StatusCode == HttpStatusCode.OK)
 					{
@@ -215,22 +215,10 @@ namespace SaveImageToDatabaseSampleApp
 
 		HttpClient CreateHttpClient()
 		{
-			HttpClient client;
-
-			switch (Device.RuntimePlatform)
+			var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip })
 			{
-				case Device.iOS:
-				case Device.Android:
-					client = new HttpClient { Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds) };
-					break;
-				default:
-					client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip })
-					{
-						Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds)
-					};
-					break;
-			}
-
+				Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds)
+			};
 			client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
 
 			return client;
