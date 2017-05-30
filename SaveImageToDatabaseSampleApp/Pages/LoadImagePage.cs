@@ -92,15 +92,12 @@ namespace SaveImageToDatabaseSampleApp
 			base.OnDisappearing();
 
 			_viewModel.ImageDownloadFailed -= HandleImageDownloadFailed;
-
 		}
 
-		void HandleImageDownloadFailed(object sender, RetrievingDataFailureEventArgs e)
+        void HandleImageDownloadFailed(object sender, string message)
 		{
 			Device.BeginInvokeOnMainThread(async () =>
-			{
-				await DisplayAlert("Error Downloading Image", e.RetrievingDataFailureMessage, "Ok");
-			});
+                   await DisplayAlert("Error Downloading Image", message, "Ok"));
 		}
 		#endregion
 	}
