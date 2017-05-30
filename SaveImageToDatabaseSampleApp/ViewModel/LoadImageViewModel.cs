@@ -34,14 +34,14 @@ namespace SaveImageToDatabaseSampleApp
 		{
 			Task.Run(async () =>
 			{
-				await RefreshDataAsync();
-				await UpdateDownloadButtonText();
+                await RefreshDataAsync().ConfigureAwait(false);
+                await UpdateDownloadButtonText().ConfigureAwait(false);
 			});
 		}
 		#endregion
 
 		#region Events
-		public event EventHandler<RetrievingDataFailureEventArgs> ImageDownloadFailed;
+		public event EventHandler<string> ImageDownloadFailed;
 		#endregion
 
 		#region Properties
@@ -55,44 +55,44 @@ namespace SaveImageToDatabaseSampleApp
 
 		public bool IsImageDownloading
 		{
-			get { return _isImageDownloading; }
-			set { SetProperty(ref _isImageDownloading, value); }
+			get => _isImageDownloading;
+			set => SetProperty(ref _isImageDownloading, value);
 		}
 
 		public bool AreImageAndClearButtonVisible
 		{
-			get { return _isImageVisible; }
-			set { SetProperty(ref _isImageVisible, value); }
+			get => _isImageVisible;
+			set => SetProperty(ref _isImageVisible, value);
 		}
 
 		public string ImageUrlEntryText
 		{
-			get { return _imageUrlEntryText; }
-			set { SetProperty(ref _imageUrlEntryText, value, async () => await UpdateDownloadButtonText()); }
+			get => _imageUrlEntryText;
+			set => SetProperty(ref _imageUrlEntryText, value, async () => await UpdateDownloadButtonText());
 		}
 
 		public ImageSource DownloadedImageSource
 		{
-			get { return _downloadedImageSource; }
-			set { SetProperty(ref _downloadedImageSource, value); }
+			get => _downloadedImageSource;
+			set => SetProperty(ref _downloadedImageSource, value);
 		}
 
 		public string DownloadImageButtonText
 		{
-			get { return _downloadImageButtonText; }
-			set { SetProperty(ref _downloadImageButtonText, value); }
+			get => _downloadImageButtonText;
+			set => SetProperty(ref _downloadImageButtonText, value);
 		}
 
 		public bool IsLoadImageButtonEnabled
 		{
-			get { return _isLoadImageButtonEnabled; }
-			set { SetProperty(ref _isLoadImageButtonEnabled, value); }
+			get => _isLoadImageButtonEnabled;
+			set => SetProperty(ref _isLoadImageButtonEnabled, value);
 		}
 
 		public List<DownloadedImageModel> DownloadedImageModelList
 		{
-			get { return _imageDatabaseModelList; }
-			set { SetProperty(ref _imageDatabaseModelList, value); }
+			get => _imageDatabaseModelList;
+			set => SetProperty(ref _imageDatabaseModelList, value);
 		}
 		#endregion
 
@@ -123,9 +123,9 @@ namespace SaveImageToDatabaseSampleApp
 
 		async Task UpdateDownloadButtonText()
 		{
-			await RefreshDataAsync();
+			await RefreshDataAsync().ConfigureAwait(false);
 
-			if (IsUrlWithNonNullImageInDatabase(ImageUrlEntryText))
+			if (IsUrInDatabase(ImageUrlEntryText))
 				DownloadImageButtonText = LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText;
 			else
 				DownloadImageButtonText = LoadImageButtonTextConstants.DownloadImageFromUrlButtonText;
@@ -133,14 +133,9 @@ namespace SaveImageToDatabaseSampleApp
 			IsLoadImageButtonEnabled = true;
 		}
 
-		bool IsUrlWithNonNullImageInDatabase(string url)
+        bool IsUrInDatabase(string url)
 		{
-			var downloadedImageModelWithMatchingUrl = DownloadedImageModelList.FirstOrDefault(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
-			var doesDownloadedImageModelWithMatchingUrlExist = downloadedImageModelWithMatchingUrl != null;
-
-			var isBase64StringNull = string.IsNullOrEmpty(downloadedImageModelWithMatchingUrl?.DownloadedImageAsBase64String);
-
-			return doesDownloadedImageModelWithMatchingUrlExist && !isBase64StringNull;
+            return DownloadedImageModelList.Any(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
 		}
 
 		async Task LoadImageFromDatabaseAsync(string imageUrl)
@@ -150,7 +145,7 @@ namespace SaveImageToDatabaseSampleApp
 				{ AnalyticsConstants.ImageUrl, imageUrl }
 			});
 
-			var downloadedImageModel = await DownloadedImageModelDatabase.GetDownloadedImageAsync(imageUrl);
+            var downloadedImageModel = await DownloadedImageModelDatabase.GetDownloadedImageAsync(imageUrl).ConfigureAwait(false);
 
 			DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
 
@@ -169,16 +164,15 @@ namespace SaveImageToDatabaseSampleApp
 				{
 					if (httpResponse.StatusCode == HttpStatusCode.OK)
 					{
-						downloadedImage = await httpResponse.Content.ReadAsByteArrayAsync();
-						var downloadedImageBase64String = Convert.ToBase64String(downloadedImage);
+                        downloadedImage = await httpResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
 						var downloadedImageModel = new DownloadedImageModel
 						{
 							ImageUrl = imageUrl,
-							DownloadedImageAsBase64String = downloadedImageBase64String
+							DownloadedImageBlob = downloadedImage
 						};
 
-						await DownloadedImageModelDatabase.SaveDownloadedImage(downloadedImageModel);
+                        await DownloadedImageModelDatabase.SaveDownloadedImage(downloadedImageModel).ConfigureAwait(false);
 
 						DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
 						AreImageAndClearButtonVisible = true;
@@ -230,10 +224,8 @@ namespace SaveImageToDatabaseSampleApp
 			IsLoadImageButtonEnabled = !isImageDownloading;
 		}
 
-		void OnImageDownloadFailed(string failureMessage)
-		{
-			ImageDownloadFailed?.Invoke(this, new RetrievingDataFailureEventArgs(failureMessage));
-		}
+		void OnImageDownloadFailed(string failureMessage) =>
+			ImageDownloadFailed?.Invoke(this, failureMessage);
 		#endregion
 	}
 }
