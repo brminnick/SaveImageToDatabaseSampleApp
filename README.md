@@ -8,4 +8,4 @@ The [database model](https://github.com/brminnick/SaveImageToDatabaseSampleApp/b
 
 This app contains UITests. The UITests follow the recommended practice of Page Object testing. In the views, we've added an `AutomationId` to each control to show how UITest can interact with controls most efficiently, using their AutomationId. The test results from [Xamarin Test Cloud](https://www.xamarin.com/test-cloud) are viewable [here for iOS](https://testcloud.xamarin.com/test/imagedatabasesample_64fc94d8-78f5-4172-abe3-626fc5ac9e60/) and [here for Android](https://testcloud.xamarin.com/test/imagedatabasesample_e1526b0a-091d-4f39-a8ed-d211936dcb55/).
 
-![UI Demo](./Demos/UI%20Demo.gif)
+![UI Demo](./Demos/Demo.gif)
