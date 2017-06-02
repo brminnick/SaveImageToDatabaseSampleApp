@@ -15,7 +15,7 @@ namespace SaveImageToDatabaseSampleApp
 
 		public byte[] DownloadedImageBlob { get; set; }
 
-		public ImageSource DownloadedImageAsImageStreamFromBase64String
+		public ImageSource DownloadedImageAsImageStream
 		{
 			get
 			{

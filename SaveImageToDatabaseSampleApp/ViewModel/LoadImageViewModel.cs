@@ -147,7 +147,7 @@ namespace SaveImageToDatabaseSampleApp
 
             var downloadedImageModel = await DownloadedImageModelDatabase.GetDownloadedImageAsync(imageUrl).ConfigureAwait(false);
 
-			DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
+			DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStream;
 
 			AreImageAndClearButtonVisible = true;
 		}
@@ -174,7 +174,7 @@ namespace SaveImageToDatabaseSampleApp
 
                         await DownloadedImageModelDatabase.SaveDownloadedImage(downloadedImageModel).ConfigureAwait(false);
 
-						DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStreamFromBase64String;
+						DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStream;
 						AreImageAndClearButtonVisible = true;
 
 						AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
