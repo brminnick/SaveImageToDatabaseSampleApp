@@ -54,5 +54,4 @@ namespace SaveImageToDatabaseSampleApp
 	{
 		Assert, Debug, Error, Info, Verbose, Warn
 	}
-
 }

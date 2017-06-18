@@ -45,8 +45,6 @@ namespace SaveImageToDatabaseSampleApp
 		#endregion
 
 		#region Properties
-		HttpClient Client => _client ?? (_client = CreateHttpClient());
-
 		public ICommand LoadImageButtonTapped => _loadImageButtonTapped ??
 			(_loadImageButtonTapped = new Command(async () => await ExecuteLoadImageButtonTappedAsync()));
 
@@ -94,6 +92,8 @@ namespace SaveImageToDatabaseSampleApp
 			get => _imageDatabaseModelList;
 			set => SetProperty(ref _imageDatabaseModelList, value);
 		}
+
+        HttpClient Client => _client ?? (_client = CreateHttpClient());
 		#endregion
 
 		#region Events
@@ -116,11 +116,6 @@ namespace SaveImageToDatabaseSampleApp
 			AreImageAndClearButtonVisible = false;
 		}
 
-		async Task RefreshDataAsync()
-		{
-			DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync();
-		}
-
 		async Task UpdateDownloadButtonText()
 		{
 			await RefreshDataAsync().ConfigureAwait(false);
@@ -131,11 +126,6 @@ namespace SaveImageToDatabaseSampleApp
 				DownloadImageButtonText = LoadImageButtonTextConstants.DownloadImageFromUrlButtonText;
 
 			IsLoadImageButtonEnabled = true;
-		}
-
-        bool IsUrInDatabase(string url)
-		{
-            return DownloadedImageModelList.Any(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
 		}
 
 		async Task LoadImageFromDatabaseAsync(string imageUrl)
@@ -223,6 +213,12 @@ namespace SaveImageToDatabaseSampleApp
 			IsImageDownloading = isImageDownloading;
 			IsLoadImageButtonEnabled = !isImageDownloading;
 		}
+
+		bool IsUrInDatabase(string url) =>
+	        DownloadedImageModelList.Any(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
+
+		async Task RefreshDataAsync() =>
+			DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync();
 
 		void OnImageDownloadFailed(string failureMessage) =>
 			ImageDownloadFailed?.Invoke(this, failureMessage);

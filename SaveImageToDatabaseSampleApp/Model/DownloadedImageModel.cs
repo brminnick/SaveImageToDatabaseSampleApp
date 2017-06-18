@@ -8,32 +8,31 @@ using Xamarin.Forms;
 
 namespace SaveImageToDatabaseSampleApp
 {
-	public class DownloadedImageModel
-	{
-		[PrimaryKey]
-		public string ImageUrl { get; set;}
+    public class DownloadedImageModel
+    {
+		public ImageSource DownloadedImageAsImageStream => GetImageStream();
 
-		public byte[] DownloadedImageBlob { get; set; }
+        [PrimaryKey]
+        public string ImageUrl { get; set; }
 
-		public ImageSource DownloadedImageAsImageStream
-		{
-			get
-			{
-				try
-				{
-					if (DownloadedImageBlob == null)
-						return null;
+        public byte[] DownloadedImageBlob { get; set; }
 
-					var imageByteArray = DownloadedImageBlob;
+        ImageSource GetImageStream()
+        {
+            try
+            {
+                if (DownloadedImageBlob == null)
+                    return null;
 
-					return ImageSource.FromStream(() => new MemoryStream(imageByteArray));
-				}
-				catch (Exception e)
-				{
-					Debug.WriteLine(e);
-					return null;
-				}
-			}
-		}
-	}
+                var imageByteArray = DownloadedImageBlob;
+
+                return ImageSource.FromStream(() => new MemoryStream(imageByteArray));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return null;
+            }
+        }
+    }
 }
