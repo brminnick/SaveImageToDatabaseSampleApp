@@ -57,11 +57,14 @@
       <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Constants\SaveImageToDatabaseSampleApp.Constants.csproj">
+      <Project>{12EA3716-23F2-4BF4-8B59-C8D0BBF82A09}</Project>
+      <Name>SaveImageToDatabaseSampleApp.Constants</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="Tests\" />
   </ItemGroup>
-  <Import Project="..\Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

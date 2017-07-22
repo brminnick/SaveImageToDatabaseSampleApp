@@ -1,5 +1,4 @@
-﻿using System;
-namespace SaveImageToDatabaseSampleApp.Shared
+﻿namespace SaveImageToDatabaseSampleApp.Constants
 {
 	public static class AutomationIdConstants
 	{

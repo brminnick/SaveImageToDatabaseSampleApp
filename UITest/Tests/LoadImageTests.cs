@@ -3,7 +3,8 @@
 using NUnit.Framework;
 
 using Xamarin.UITest;
-using SaveImageToDatabaseSampleApp.Shared;
+
+using SaveImageToDatabaseSampleApp.Constants;
 
 namespace SaveImageToDatabaseSampleApp.UITest
 {
@@ -21,7 +22,6 @@ namespace SaveImageToDatabaseSampleApp.UITest
 
 		[TestCase(false)]
 		[TestCase(true)]
-		[Test]
 		public async Task DownloadImageFromValidUrl(bool shouldPressKeyboardReturnButton)
 		{
 			//Arrange
@@ -59,7 +59,6 @@ namespace SaveImageToDatabaseSampleApp.UITest
 
 		[TestCase(false)]
 		[TestCase(true)]
-		[Test]
 		public async Task DownloadImageFromInvalidUrl(bool shouldPressKeyboardReturnButton)
 		{
 			//Arrange
