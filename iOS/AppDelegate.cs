@@ -6,7 +6,7 @@ namespace SaveImageToDatabaseSampleApp.iOS
 	[Register("AppDelegate")]
 	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
-		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+		public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
 		{
 			
 #if ENABLE_TEST_CLOUD
@@ -18,7 +18,7 @@ namespace SaveImageToDatabaseSampleApp.iOS
 
 			LoadApplication(new App());
 
-			return base.FinishedLaunching(app, options);
+			return base.FinishedLaunching(uiApplication, launchOptions);
 		}
 	}
 }
