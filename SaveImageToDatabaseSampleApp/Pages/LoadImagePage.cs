@@ -29,7 +29,7 @@ namespace SaveImageToDatabaseSampleApp
                 ReturnType = ReturnType.Go
             };
             imageUrlEntry.SetBinding(Entry.TextProperty, nameof(_viewModel.ImageUrlEntryText));
-            imageUrlEntry.SetBinding(CustomReturnEntry.ReturnCommandProperty, nameof(_viewModel.LoadImageButtonTapped));
+            imageUrlEntry.SetBinding(CustomReturnEntry.ReturnCommandProperty, nameof(_viewModel.LoadImageButtonCommand));
 
             var loadImageButton = new Button
             {
@@ -37,7 +37,7 @@ namespace SaveImageToDatabaseSampleApp
                 AutomationId = AutomationIdConstants.LoadImageButton
             };
             loadImageButton.SetBinding(IsEnabledProperty, nameof(_viewModel.IsLoadImageButtonEnabled));
-            loadImageButton.SetBinding(Button.CommandProperty, nameof(_viewModel.LoadImageButtonTapped));
+            loadImageButton.SetBinding(Button.CommandProperty, nameof(_viewModel.LoadImageButtonCommand));
             loadImageButton.SetBinding(Button.TextProperty, nameof(_viewModel.DownloadImageButtonText));
 
             var downloadedImage = new Image
