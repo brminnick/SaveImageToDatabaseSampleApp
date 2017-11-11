@@ -21,10 +21,10 @@ namespace SaveImageToDatabaseSampleApp
 
         #region Fields
         bool _isImageDownloading, _isImageVisible, _isLoadImageButtonEnabled;
-        string _imageUrlEntryText = @"https://www.xamarin.com/content/images/pages/branding/assets/xamarin-logo.png";
+        string _imageUrlEntryText = @"https://blobstoragesampleapp.blob.core.windows.net/photos/Punday";
         string _downloadImageButtonText;
         ImageSource _downloadedImageSource;
-        Lazy<HttpClient> _clientHolder = new Lazy<HttpClient>(CreateHttpClient);
+        Lazy<HttpClient> _clientHolder = new Lazy<HttpClient>(() => CreateHttpClient(TimeSpan.FromSeconds(10)));
         ICommand _loadImageButtonTapped, _clearImageButtonTapped;
         List<DownloadedImageModel> _imageDatabaseModelList;
         #endregion
@@ -45,8 +45,8 @@ namespace SaveImageToDatabaseSampleApp
         #endregion
 
         #region Properties
-        public ICommand LoadImageButtonTapped => _loadImageButtonTapped ??
-            (_loadImageButtonTapped = new Command(async () => await ExecuteLoadImageButtonTappedAsync()));
+        public ICommand LoadImageButtonCommand => _loadImageButtonTapped ??
+            (_loadImageButtonTapped = new Command(async () => await ExecuteLoadImageButtonCommand()));
 
         public ICommand ClearImageButtonTapped => _clearImageButtonTapped ??
             (_clearImageButtonTapped = new Command(ExecuteClearImageButtonTapped));
@@ -94,21 +94,31 @@ namespace SaveImageToDatabaseSampleApp
         }
 
         HttpClient Client => _clientHolder.Value;
-		#endregion
+        #endregion
 
-		#region Methods
-		static HttpClient CreateHttpClient()
-		{
-			var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip })
-			{
-				Timeout = TimeSpan.FromSeconds(_downloadImageTimeoutInSeconds)
-			};
-			client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+        #region Methods
+        static HttpClient CreateHttpClient(TimeSpan timeout)
+        {
+            HttpClient client;
 
-			return client;
-		}
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                case Device.Android:
+                    client = new HttpClient();
+                    break;
+                default:
+                    client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip });
+                    break;
 
-        async Task ExecuteLoadImageButtonTappedAsync()
+            }
+            client.Timeout = timeout;
+            client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+
+            return client;
+        }
+
+        async Task ExecuteLoadImageButtonCommand()
         {
             if (DownloadImageButtonText.Equals(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText))
                 await LoadImageFromDatabaseAsync(ImageUrlEntryText);
@@ -151,6 +161,12 @@ namespace SaveImageToDatabaseSampleApp
 
         async Task DownloadImageAsync(string imageUrl)
         {
+            if(!imageUrl.Contains("https"))
+            {
+                OnImageDownloadFailed("URL must use https");
+                return;
+            }
+
             byte[] downloadedImage;
 
             SetIsImageDownloading(true);

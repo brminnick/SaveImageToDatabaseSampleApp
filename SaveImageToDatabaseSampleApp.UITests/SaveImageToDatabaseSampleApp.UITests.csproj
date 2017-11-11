@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{27BD0FD1-0560-4735-9C4B-D68409C45F4D}</ProjectGuid>
+    <ProjectGuid>{DC3945FD-BC09-40CF-A605-2875BBE56A29}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SaveImageToDatabaseSampleApp.UITest</RootNamespace>
-    <AssemblyName>SaveImageToDatabaseSampleApp.UITest</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>SaveImageToDatabaseSampleApp.UITests</RootNamespace>
+    <AssemblyName>SaveImageToDatabaseSampleApp.UITests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,29 +27,31 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.UITest">
-      <HintPath>..\packages\Xamarin.UITest.2.0.9\lib\Xamarin.UITest.dll</HintPath>
+      <HintPath>..\packages\Xamarin.UITest.2.2.1\lib\net45\Xamarin.UITest.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
-    <Compile Include="Tests\LoadImageTests.cs" />
-    <Compile Include="Pages\LoadImagePage.cs" />
     <Compile Include="Pages\BasePage.cs" />
+    <Compile Include="Pages\LoadImagePage.cs" />
     <Compile Include="Tests\BaseTest.cs" />
+    <Compile Include="Tests\LoadImageTests.cs" />
     <Compile Include="Tests\ReplTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\iOS\SaveImageToDatabaseSampleApp.iOS.csproj">
-      <Project>{217DCAB1-2129-448C-A8E4-DF3B3E629B28}</Project>
-      <Name>SaveImageToDatabaseSampleApp.iOS</Name>
-      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-      <Private>False</Private>
+    <Folder Include="Pages\" />
+    <Folder Include="Tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Constants\SaveImageToDatabaseSampleApp.Constants.csproj">
+      <Project>{10EC2512-CBD3-4526-9068-6CA809427FB3}</Project>
+      <Name>SaveImageToDatabaseSampleApp.Constants</Name>
     </ProjectReference>
     <ProjectReference Include="..\Droid\SaveImageToDatabaseSampleApp.Droid.csproj">
       <Project>{3C4E3EE1-6ED3-4B78-9268-E5BFDBE8D876}</Project>
@@ -57,14 +59,12 @@
       <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Constants\SaveImageToDatabaseSampleApp.Constants.csproj">
-      <Project>{12EA3716-23F2-4BF4-8B59-C8D0BBF82A09}</Project>
-      <Name>SaveImageToDatabaseSampleApp.Constants</Name>
+    <ProjectReference Include="..\iOS\SaveImageToDatabaseSampleApp.iOS.csproj">
+      <Project>{217DCAB1-2129-448C-A8E4-DF3B3E629B28}</Project>
+      <Name>SaveImageToDatabaseSampleApp.iOS</Name>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+      <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\" />
-    <Folder Include="Tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Xamarin.UITest;
 
-namespace SaveImageToDatabaseSampleApp.UITest
+namespace SaveImageToDatabaseSampleApp.UITests
 {
     public static class AppInitializer
     {
@@ -13,7 +13,7 @@ namespace SaveImageToDatabaseSampleApp.UITest
                 case Platform.iOS:
                     return ConfigureApp.iOS.StartApp();
                 default:
-                    throw new System.Exception("Platform Not Supported");
+                    throw new System.NotSupportedException("Platform Not Supported");
             }
         }
     }

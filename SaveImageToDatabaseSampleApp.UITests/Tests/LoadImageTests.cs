@@ -6,7 +6,7 @@ using Xamarin.UITest;
 
 using SaveImageToDatabaseSampleApp.Constants;
 
-namespace SaveImageToDatabaseSampleApp.UITest
+namespace SaveImageToDatabaseSampleApp.UITests
 {
 	public class LoadImageTests : BaseTest
 	{
