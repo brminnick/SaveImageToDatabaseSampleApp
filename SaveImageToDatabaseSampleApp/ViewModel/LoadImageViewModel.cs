@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-using SaveImageToDatabaseSampleApp.Shared;
+using SaveImageToDatabaseSampleApp.Constants;
 
 namespace SaveImageToDatabaseSampleApp
 {

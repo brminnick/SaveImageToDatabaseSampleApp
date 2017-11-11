@@ -48,5 +48,11 @@
     <Folder Include="Pages\" />
     <Folder Include="Tests\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Constants\SaveImageToDatabaseSampleApp.Constants.csproj">
+      <Project>{10EC2512-CBD3-4526-9068-6CA809427FB3}</Project>
+      <Name>SaveImageToDatabaseSampleApp.Constants</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

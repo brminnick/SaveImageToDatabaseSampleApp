@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 using Xamarin.UITest;
 
-using SaveImageToDatabaseSampleApp.Shared;
+using SaveImageToDatabaseSampleApp.Constants;
 
 namespace SaveImageToDatabaseSampleApp.UITests
 {

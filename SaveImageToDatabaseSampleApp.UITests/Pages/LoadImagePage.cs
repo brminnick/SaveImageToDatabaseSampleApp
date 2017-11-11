@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Xamarin.UITest;
 
-using SaveImageToDatabaseSampleApp.Shared;
+using SaveImageToDatabaseSampleApp.Constants;
 
 using Query = System.Func<Xamarin.UITest.Queries.AppQuery, Xamarin.UITest.Queries.AppQuery>;
 

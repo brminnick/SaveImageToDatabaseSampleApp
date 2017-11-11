@@ -19,5 +19,7 @@
 		<PackageReference Include="Microsoft.Azure.Mobile.Crashes" Version="0.17.1" />
 		<PackageReference Include="Microsoft.Azure.Mobile.Analytics" Version="0.17.1" />
 	</ItemGroup>
-	<Import Project="..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
+	<ItemGroup>
+	  <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Constants\SaveImageToDatabaseSampleApp.Constants.csproj" />
+	</ItemGroup>
 </Project>
