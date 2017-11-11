@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-using SaveImageToDatabaseSampleApp.Constants;
+using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp
 {
@@ -21,7 +21,7 @@ namespace SaveImageToDatabaseSampleApp
 
         #region Fields
         bool _isImageDownloading, _isImageVisible, _isLoadImageButtonEnabled;
-        string _imageUrlEntryText = @"https://www.xamarin.com/content/images/pages/branding/assets/xamarin-logo.png";
+        string _imageUrlEntryText = @"https://xamcamstorage.blob.core.windows.net/asset-e5f64394-98b0-4304-8a7a-1e4158e658c2/15%20Yellow%20Submarine.mp3?sv=2015-07-08&sr=c&si=9dd76733-1f63-4f28-8cbc-2f4a0755d466&sig=OWgmzC3W2mqImg40fxtPrPO7As5U0x2Y9XtRM96DI20%3D&st=2017-08-15T23%3A20%3A23Z&se=2117-08-15T23%3A20%3A23Z";
         string _downloadImageButtonText;
         ImageSource _downloadedImageSource;
         Lazy<HttpClient> _clientHolder = new Lazy<HttpClient>(CreateHttpClient);

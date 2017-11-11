@@ -2,7 +2,7 @@
 
 using Xamarin.Forms;
 
-using SaveImageToDatabaseSampleApp.Constants;
+using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp
 {

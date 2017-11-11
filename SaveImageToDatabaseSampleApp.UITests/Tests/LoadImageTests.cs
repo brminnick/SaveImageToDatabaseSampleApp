@@ -4,9 +4,9 @@ using NUnit.Framework;
 
 using Xamarin.UITest;
 
-using SaveImageToDatabaseSampleApp.Constants;
+using SaveImageToDatabaseSampleApp.Shared;
 
-namespace SaveImageToDatabaseSampleApp.UITest
+namespace SaveImageToDatabaseSampleApp.UITests
 {
 	public class LoadImageTests : BaseTest
 	{

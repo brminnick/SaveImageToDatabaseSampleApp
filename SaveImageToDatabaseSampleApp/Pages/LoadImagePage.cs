@@ -2,7 +2,7 @@
 
 using EntryCustomReturn.Forms.Plugin.Abstractions;
 
-using SaveImageToDatabaseSampleApp.Constants;
+using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp
 {

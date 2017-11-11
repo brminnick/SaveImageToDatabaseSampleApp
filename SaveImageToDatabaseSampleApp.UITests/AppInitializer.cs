@@ -1,6 +1,6 @@
 ﻿using Xamarin.UITest;
 
-namespace SaveImageToDatabaseSampleApp.UITest
+namespace SaveImageToDatabaseSampleApp.UITests
 {
     public static class AppInitializer
     {

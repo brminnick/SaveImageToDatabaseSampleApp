@@ -1,4 +1,4 @@
-﻿namespace SaveImageToDatabaseSampleApp.Constants
+﻿namespace SaveImageToDatabaseSampleApp.Shared
 {
 	public static class LoadImageButtonTextConstants
 	{
