@@ -13,7 +13,7 @@ namespace SaveImageToDatabaseSampleApp.UITests
                 case Platform.iOS:
                     return ConfigureApp.iOS.StartApp();
                 default:
-                    throw new System.Exception("Platform Not Supported");
+                    throw new System.NotSupportedException("Platform Not Supported");
             }
         }
     }
