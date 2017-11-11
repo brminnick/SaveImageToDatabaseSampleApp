@@ -53,6 +53,18 @@
       <Project>{10EC2512-CBD3-4526-9068-6CA809427FB3}</Project>
       <Name>SaveImageToDatabaseSampleApp.Constants</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Droid\SaveImageToDatabaseSampleApp.Droid.csproj">
+      <Project>{3C4E3EE1-6ED3-4B78-9268-E5BFDBE8D876}</Project>
+      <Name>SaveImageToDatabaseSampleApp.Droid</Name>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\iOS\SaveImageToDatabaseSampleApp.iOS.csproj">
+      <Project>{217DCAB1-2129-448C-A8E4-DF3B3E629B28}</Project>
+      <Name>SaveImageToDatabaseSampleApp.iOS</Name>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
