@@ -10,11 +10,10 @@ namespace SaveImageToDatabaseSampleApp
 {
     public static class AnalyticsHelpers
     {
-        public static async Task Start(string APIKey)
+        public static void Start(string APIKey)
         {
             MobileCenter.Configure(APIKey);
             MobileCenter.Start(typeof(Analytics), typeof(Crashes));
-            await Analytics.SetEnabledAsync(true);
         }
 
         public static void TrackEvent(string trackIdentifier, IDictionary<string, string> table = null) =>

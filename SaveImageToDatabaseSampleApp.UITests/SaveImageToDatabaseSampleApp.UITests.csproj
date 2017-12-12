@@ -40,6 +40,7 @@
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\LoadImageTests.cs" />
     <Compile Include="Tests\ReplTests.cs" />
+    <Compile Include="Tests\SmokeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -49,10 +50,6 @@
     <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Constants\SaveImageToDatabaseSampleApp.Constants.csproj">
-      <Project>{10EC2512-CBD3-4526-9068-6CA809427FB3}</Project>
-      <Name>SaveImageToDatabaseSampleApp.Constants</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Droid\SaveImageToDatabaseSampleApp.Droid.csproj">
       <Project>{3C4E3EE1-6ED3-4B78-9268-E5BFDBE8D876}</Project>
       <Name>SaveImageToDatabaseSampleApp.Droid</Name>
@@ -66,5 +63,6 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

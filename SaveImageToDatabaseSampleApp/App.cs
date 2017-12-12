@@ -2,7 +2,7 @@
 
 using Xamarin.Forms;
 
-using SaveImageToDatabaseSampleApp.Constants;
+using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp
 {
@@ -18,20 +18,20 @@ namespace SaveImageToDatabaseSampleApp
             };
         }
 
-        protected override async void OnStart()
+        protected override void OnStart()
         {
             base.OnStart();
 
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
-                    await AnalyticsHelpers.Start(AnalyticsConstants.MobileCenteriOSAPIKey);
+                    AnalyticsHelpers.Start(AnalyticsConstants.MobileCenteriOSAPIKey);
                     break;
                 case Device.Android:
-                    await AnalyticsHelpers.Start(AnalyticsConstants.MobileCenterAndroidAPIKey);
+                    AnalyticsHelpers.Start(AnalyticsConstants.MobileCenterAndroidAPIKey);
                     break;
                 default:
-                    throw new Exception("Runtime Platform Unsupported");
+                    throw new NotSupportedException("Runtime Platform Unsupported");
             }
         }
         #endregion

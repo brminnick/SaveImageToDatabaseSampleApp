@@ -8,29 +8,22 @@ namespace SaveImageToDatabaseSampleApp.UITests
     [TestFixture(Platform.iOS)]
     public abstract class BaseTest
     {
-        #region Fields
-        readonly Platform _platform;
-
-        IApp _app;
-        LoadImagePage _mainPage;
-        #endregion
-
         #region Constructors
-        protected BaseTest(Platform platform) => _platform = platform;
+        protected BaseTest(Platform platform) => Platform = platform;
         #endregion
 
         #region Properties
-        protected IApp App => _app;
-        protected Platform Platform => _platform;
-        protected LoadImagePage MainPage => _mainPage;
+		protected Platform Platform { get; }
+        protected IApp App { get; private set; }
+        protected LoadImagePage LoadImagePage { get; private set; }
         #endregion
 
         #region Methods
         [SetUp]
         public virtual void TestSetup()
         {
-            _app = AppInitializer.StartApp(Platform);
-            _mainPage = new LoadImagePage(App);
+            App = AppInitializer.StartApp(Platform);
+            LoadImagePage = new LoadImagePage(App);
 
             App.Screenshot("App Launched");
         }

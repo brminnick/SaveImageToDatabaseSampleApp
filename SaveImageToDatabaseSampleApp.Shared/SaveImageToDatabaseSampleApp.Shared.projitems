@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{DA6C6EAF-8381-4126-9FEB-24C9CEB7EC2B}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SaveImageToDatabaseSampleApp.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AnalyticsConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutomationIdConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadImageButtonTextConstants.cs" />
+  </ItemGroup>
+</Project>

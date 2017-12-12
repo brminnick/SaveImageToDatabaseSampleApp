@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 using Xamarin.UITest;
 
-using SaveImageToDatabaseSampleApp.Constants;
+using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp.UITests
 {
@@ -14,12 +14,6 @@ namespace SaveImageToDatabaseSampleApp.UITests
 		{
 		}
 
-		[Test]
-		public void AppLaunches()
-		{
-
-		}
-
 		[TestCase(false)]
 		[TestCase(true)]
 		public async Task DownloadImageFromValidUrl(bool shouldPressKeyboardReturnButton)
@@ -27,34 +21,34 @@ namespace SaveImageToDatabaseSampleApp.UITests
 			//Arrange
 
 			//Act
-			MainPage.EnterUrl(MainPage.ValidUrl);
+			LoadImagePage.EnterUrl(LoadImagePage.ValidUrl);
 
 			//Assert
-			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, MainPage.LoadImageButtonText);
+			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
 
 			//Act
 			switch (shouldPressKeyboardReturnButton)
 			{
 				case true:
-					MainPage.TapKeyboardEnterButton();
+					LoadImagePage.TapKeyboardEnterButton();
 					break;
 
 				case false:
-					MainPage.TapLoadImageButton();
+					LoadImagePage.TapLoadImageButton();
 					break;
 			}
-			await MainPage.WaitForNoIsDownloadingActivityIndicator();
+			await LoadImagePage.WaitForNoIsDownloadingActivityIndicator();
 
 			//Assert
-			Assert.IsTrue(MainPage.IsDownloadedImageShown);
-			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, MainPage.LoadImageButtonText);
+			Assert.IsTrue(LoadImagePage.IsDownloadedImageShown);
+			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, LoadImagePage.LoadImageButtonText);
 
 			//Act
-			MainPage.TapClearImageButton();
+			LoadImagePage.TapClearImageButton();
 
 			//Assert
-			Assert.IsFalse(MainPage.IsDownloadedImageShown);
-			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, MainPage.LoadImageButtonText);
+			Assert.IsFalse(LoadImagePage.IsDownloadedImageShown);
+			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, LoadImagePage.LoadImageButtonText);
 		}
 
 		[TestCase(false)]
@@ -64,29 +58,29 @@ namespace SaveImageToDatabaseSampleApp.UITests
 			//Arrange
 
 			//Act
-			MainPage.EnterUrl(MainPage.InvalidUrl);
+			LoadImagePage.EnterUrl(LoadImagePage.InvalidUrl);
 
 			//Assert
-			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, MainPage.LoadImageButtonText);
+			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
 
 			//Act
 			switch (shouldPressKeyboardReturnButton)
 			{
 				case true:
-					MainPage.TapKeyboardEnterButton();
+					LoadImagePage.TapKeyboardEnterButton();
 					break;
 				
 				case false:
-					MainPage.TapLoadImageButton();
+					LoadImagePage.TapLoadImageButton();
 					break;
 			}
 
-			await MainPage.WaitForNoIsDownloadingActivityIndicator();
-			MainPage.TapOkOnErrorPrompt();
+			await LoadImagePage.WaitForNoIsDownloadingActivityIndicator();
+			LoadImagePage.TapOkOnErrorPrompt();
 
 			//Assert
-			Assert.IsFalse(MainPage.IsDownloadedImageShown);
-			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, MainPage.LoadImageButtonText);
+			Assert.IsFalse(LoadImagePage.IsDownloadedImageShown);
+			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
 		}
 	}
 }

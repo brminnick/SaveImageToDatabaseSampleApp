@@ -20,7 +20,5 @@
 		<PackageReference Include="Xam.Plugins.Forms.CustomReturnEntry" Version="3.2.0" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.9" />
 	</ItemGroup>
-	<ItemGroup>
-	  <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Constants\SaveImageToDatabaseSampleApp.Constants.csproj" />
-	</ItemGroup>
+	<Import Project="..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
 </Project>

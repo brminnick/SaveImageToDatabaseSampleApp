@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageToDatabaseSampleAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageToDatabaseSampleApp.UITests", "SaveImageToDatabaseSampleApp.UITests\SaveImageToDatabaseSampleApp.UITests.csproj", "{DC3945FD-BC09-40CF-A605-2875BBE56A29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageToDatabaseSampleApp.Constants", "SaveImageToDatabaseSampleApp.Constants\SaveImageToDatabaseSampleApp.Constants.csproj", "{10EC2512-CBD3-4526-9068-6CA809427FB3}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SaveImageToDatabaseSampleApp.Shared", "SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.shproj", "{DA6C6EAF-8381-4126-9FEB-24C9CEB7EC2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,17 +69,5 @@ Global
 		{DC3945FD-BC09-40CF-A605-2875BBE56A29}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{DC3945FD-BC09-40CF-A605-2875BBE56A29}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{DC3945FD-BC09-40CF-A605-2875BBE56A29}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Release|iPhone.Build.0 = Release|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{10EC2512-CBD3-4526-9068-6CA809427FB3}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
