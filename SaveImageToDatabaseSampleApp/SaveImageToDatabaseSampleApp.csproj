@@ -17,8 +17,8 @@
 		<PackageReference Include="Microsoft.Azure.Mobile.Crashes" Version="0.17.1" />
 		<PackageReference Include="Microsoft.Azure.Mobile.Analytics" Version="0.17.1" />
 		<PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
-		<PackageReference Include="Xam.Plugins.Forms.CustomReturnEntry" Version="3.2.0" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.9" />
+		<PackageReference Include="Xam.Plugins.Forms.CustomReturnEntry" Version="3.2.1" />
 	</ItemGroup>
 	<Import Project="..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
 </Project>
