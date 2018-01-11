@@ -14,15 +14,10 @@ namespace SaveImageToDatabaseSampleApp.iOS
 		{
 			base.OnElementChanged(e);
 
-			if (this.Control == null)
-			{
-				return;
-			}
+			if (Control == null)
+				return;			
 
-			var entry = this.Control as UITextField;
-
-			entry.ClearButtonMode = UITextFieldViewMode.WhileEditing;
-
+            Control.ClearButtonMode = UITextFieldViewMode.WhileEditing;
 		}
 	}
 }

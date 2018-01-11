@@ -163,6 +163,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Services\SQLite_iOS.cs" />
     <Compile Include="CustomRenderers\EntryWithClearButtonRenderer.cs" />
+    <Compile Include="CustomRenderers\NavigationPageCustomRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SaveImageToDatabaseSampleApp\SaveImageToDatabaseSampleApp.csproj">

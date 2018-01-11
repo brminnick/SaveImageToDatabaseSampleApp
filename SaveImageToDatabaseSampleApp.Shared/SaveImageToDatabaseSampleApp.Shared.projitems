@@ -9,8 +9,12 @@
     <Import_RootNamespace>SaveImageToDatabaseSampleApp.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AnalyticsConstants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AutomationIdConstants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LoadImageButtonTextConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\AnalyticsConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\AutomationIdConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\LoadImageButtonTextConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\ColorConstants.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Constants\" />
   </ItemGroup>
 </Project>

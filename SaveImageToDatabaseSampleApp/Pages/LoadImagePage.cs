@@ -23,13 +23,13 @@ namespace SaveImageToDatabaseSampleApp
                 Text = "Image Url"
             };
 
-            var imageUrlEntry = new CustomReturnEntry
+            var imageUrlEntry = new Entry
             {
                 AutomationId = AutomationIdConstants.ImageUrlEntry,
-                ReturnType = ReturnType.Go
             };
             imageUrlEntry.SetBinding(Entry.TextProperty, nameof(LoadImageViewModel.ImageUrlEntryText));
-            imageUrlEntry.SetBinding(CustomReturnEntry.ReturnCommandProperty, nameof(LoadImageViewModel.LoadImageButtonCommand));
+            imageUrlEntry.SetBinding(CustomReturnEffect.ReturnCommandProperty, nameof(LoadImageViewModel.LoadImageButtonCommand));
+            CustomReturnEffect.SetReturnType(imageUrlEntry, ReturnType.Go);
 
             var loadImageButton = new Button
             {

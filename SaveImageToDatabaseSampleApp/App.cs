@@ -13,8 +13,8 @@ namespace SaveImageToDatabaseSampleApp
         {
             MainPage = new NavigationPage(new LoadImagePage())
             {
-                BarBackgroundColor = Color.FromHex("3498db"),
-                BarTextColor = Color.White
+                BarBackgroundColor = Color.FromHex(ColorConstants.NavigationPageBarBackgroundColorHex),
+                BarTextColor = Color.FromHex(ColorConstants.NavigationPageBarTextColorHex)
             };
         }
 
