@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SaveImageToDatabaseSampleApp.Shared
+﻿namespace SaveImageToDatabaseSampleApp.Shared
 {
     public static class ColorConstants
     {
