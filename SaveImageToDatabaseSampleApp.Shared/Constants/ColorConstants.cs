@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Xamarin.Forms;
-
 namespace SaveImageToDatabaseSampleApp.Shared
 {
     public static class ColorConstants
