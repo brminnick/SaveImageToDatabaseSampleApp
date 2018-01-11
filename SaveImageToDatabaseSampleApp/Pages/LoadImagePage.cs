@@ -28,39 +28,39 @@ namespace SaveImageToDatabaseSampleApp
                 AutomationId = AutomationIdConstants.ImageUrlEntry,
                 ReturnType = ReturnType.Go
             };
-            imageUrlEntry.SetBinding(Entry.TextProperty, nameof(_viewModel.ImageUrlEntryText));
-            imageUrlEntry.SetBinding(CustomReturnEntry.ReturnCommandProperty, nameof(_viewModel.LoadImageButtonCommand));
+            imageUrlEntry.SetBinding(Entry.TextProperty, nameof(LoadImageViewModel.ImageUrlEntryText));
+            imageUrlEntry.SetBinding(CustomReturnEntry.ReturnCommandProperty, nameof(LoadImageViewModel.LoadImageButtonCommand));
 
             var loadImageButton = new Button
             {
                 Margin = new Thickness(0, 20, 0, 0),
                 AutomationId = AutomationIdConstants.LoadImageButton
             };
-            loadImageButton.SetBinding(IsEnabledProperty, nameof(_viewModel.IsLoadImageButtonEnabled));
-            loadImageButton.SetBinding(Button.CommandProperty, nameof(_viewModel.LoadImageButtonCommand));
-            loadImageButton.SetBinding(Button.TextProperty, nameof(_viewModel.DownloadImageButtonText));
+            loadImageButton.SetBinding(IsEnabledProperty, nameof(LoadImageViewModel.IsLoadImageButtonEnabled));
+            loadImageButton.SetBinding(Button.CommandProperty, nameof(LoadImageViewModel.LoadImageButtonCommand));
+            loadImageButton.SetBinding(Button.TextProperty, nameof(LoadImageViewModel.DownloadImageButtonText));
 
             var downloadedImage = new Image
             {
                 AutomationId = AutomationIdConstants.DownloadedImage
             };
-            downloadedImage.SetBinding(IsVisibleProperty, nameof(_viewModel.AreImageAndClearButtonVisible));
-            downloadedImage.SetBinding(Image.SourceProperty, nameof(_viewModel.DownloadedImageSource));
+            downloadedImage.SetBinding(IsVisibleProperty, nameof(LoadImageViewModel.AreImageAndClearButtonVisible));
+            downloadedImage.SetBinding(Image.SourceProperty, nameof(LoadImageViewModel.DownloadedImageSource));
 
             var clearImageButton = new Button
             {
                 AutomationId = AutomationIdConstants.ClearImageButton,
                 Text = "Clear Image From Screen"
             };
-            clearImageButton.SetBinding(IsVisibleProperty, nameof(_viewModel.AreImageAndClearButtonVisible));
-            clearImageButton.SetBinding(Button.CommandProperty, nameof(_viewModel.ClearImageButtonTapped));
+            clearImageButton.SetBinding(IsVisibleProperty, nameof(LoadImageViewModel.AreImageAndClearButtonVisible));
+            clearImageButton.SetBinding(Button.CommandProperty, nameof(LoadImageViewModel.ClearImageButtonCommand));
 
             var isDownloadingActivityIndicator = new ActivityIndicator
             {
                 AutomationId = AutomationIdConstants.IsDownloadingActivityIndicator
             };
-            isDownloadingActivityIndicator.SetBinding(IsVisibleProperty, nameof(_viewModel.IsImageDownloading));
-            isDownloadingActivityIndicator.SetBinding(ActivityIndicator.IsRunningProperty, nameof(_viewModel.IsImageDownloading));
+            isDownloadingActivityIndicator.SetBinding(IsVisibleProperty, nameof(LoadImageViewModel.IsImageDownloading));
+            isDownloadingActivityIndicator.SetBinding(ActivityIndicator.IsRunningProperty, nameof(LoadImageViewModel.IsImageDownloading));
 
             Padding = new Thickness(20);
 
