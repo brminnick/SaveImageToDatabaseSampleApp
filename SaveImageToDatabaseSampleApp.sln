@@ -1,9 +1,9 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageToDatabaseSampleApp.iOS", "iOS\SaveImageToDatabaseSampleApp.iOS.csproj", "{217DCAB1-2129-448C-A8E4-DF3B3E629B28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageToDatabaseSampleApp.iOS", "SaveImageToDatabaseSampleApp.iOS\SaveImageToDatabaseSampleApp.iOS.csproj", "{217DCAB1-2129-448C-A8E4-DF3B3E629B28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageToDatabaseSampleApp.Droid", "Droid\SaveImageToDatabaseSampleApp.Droid.csproj", "{3C4E3EE1-6ED3-4B78-9268-E5BFDBE8D876}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageToDatabaseSampleApp.Droid", "SaveImageToDatabaseSampleApp.Droid\SaveImageToDatabaseSampleApp.Droid.csproj", "{3C4E3EE1-6ED3-4B78-9268-E5BFDBE8D876}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageToDatabaseSampleApp", "SaveImageToDatabaseSampleApp\SaveImageToDatabaseSampleApp.csproj", "{0684C175-1873-4EF3-A4CA-874673C938D8}"
 EndProject
