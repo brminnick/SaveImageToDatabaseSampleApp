@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using SQLite;
 
@@ -6,31 +7,37 @@ using Xamarin.Forms;
 
 namespace SaveImageToDatabaseSampleApp
 {
-    public abstract class BaseDatabase
-    {
-        #region Constant Fields
-        static readonly SQLiteAsyncConnection _databaseConnection = DependencyService.Get<ISQLite>().GetConnection();
-        #endregion
+	public abstract class BaseDatabase
+	{
+		#region Constant Fields
+		public const string DatabaseFileName = "ImageDatabaseModelSQLite.db3";
+		static readonly Lazy<SQLiteAsyncConnection> _databaseConnectionHolder = new Lazy<SQLiteAsyncConnection>(() =>
+			DependencyService.Get<ISQLite>().GetConnection());
+		#endregion
 
-        #region Fields
-        static bool _isInitialized;
-        #endregion
+		#region Fields
+		static bool _isInitialized;
+		#endregion
 
-        #region Methods
-        protected static async Task<SQLiteAsyncConnection> GetDatabaseConnectionAsync()
-        {
-            if (!_isInitialized)
+		#region Properties
+		static SQLiteAsyncConnection DatabaseConnection => _databaseConnectionHolder.Value;
+		#endregion
+
+		#region Methods
+		protected static async ValueTask<SQLiteAsyncConnection> GetDatabaseConnectionAsync()
+		{
+			if (!_isInitialized)
 				await Initialize();
-                
-            return _databaseConnection;
-        }
 
-        static async Task Initialize()
-        {
-            await _databaseConnection.CreateTableAsync<DownloadedImageModel>();
-            _isInitialized = true;
-        }
-        #endregion
+			return DatabaseConnection;
+		}
 
-    }
+		static async Task Initialize()
+		{
+			await DatabaseConnection.CreateTableAsync<DownloadedImageModel>().ConfigureAwait(false);
+			_isInitialized = true;
+		}
+		#endregion
+
+	}
 }

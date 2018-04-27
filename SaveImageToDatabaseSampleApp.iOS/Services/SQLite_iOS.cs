@@ -16,7 +16,7 @@ namespace SaveImageToDatabaseSampleApp.iOS
 		#region ISQLite implementation
 		public SQLiteAsyncConnection GetConnection()
 		{
-			var sqliteFilename = "ImageDatabaseModelSQLite.db3";
+			var sqliteFilename = BaseDatabase.DatabaseFileName;
 			string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
 			string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
 			var path = Path.Combine(libraryPath, sqliteFilename);

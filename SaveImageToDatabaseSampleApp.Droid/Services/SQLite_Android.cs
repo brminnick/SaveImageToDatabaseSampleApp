@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 using SQLite;
 
@@ -9,21 +10,17 @@ using SaveImageToDatabaseSampleApp.Droid;
 [assembly: Dependency(typeof(SQLite_Android))]
 namespace SaveImageToDatabaseSampleApp.Droid
 {
-	public class SQLite_Android : ISQLite
-	{
-		#region ISQLite implementation
-		public SQLiteAsyncConnection GetConnection()
-		{
-			var sqliteFilename = "ImageDatabaseModelSQLite.db3";
-			string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // Documents folder
-			var path = Path.Combine(documentsPath, sqliteFilename);
+    public class SQLite_Android : ISQLite
+    {
+        #region ISQLite implementation
+        public SQLiteAsyncConnection GetConnection()
+        {
+            var sqliteFilename = BaseDatabase.DatabaseFileName;
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var path = Path.Combine(documentsPath, sqliteFilename);
 
-			var conn = new SQLiteAsyncConnection(path, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
-
-			// Return the database connection 
-			return conn;
-		}
-		#endregion
-	}
+            return new SQLiteAsyncConnection(path, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
+        }
+        #endregion
+    }
 }
-

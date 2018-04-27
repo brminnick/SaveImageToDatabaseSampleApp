@@ -26,11 +26,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.UITest">
       <HintPath>..\packages\Xamarin.UITest.2.2.4\lib\net45\Xamarin.UITest.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -50,15 +50,15 @@
     <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Droid\SaveImageToDatabaseSampleApp.Droid.csproj">
-      <Project>{3C4E3EE1-6ED3-4B78-9268-E5BFDBE8D876}</Project>
-      <Name>SaveImageToDatabaseSampleApp.Droid</Name>
-      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\iOS\SaveImageToDatabaseSampleApp.iOS.csproj">
       <Project>{217DCAB1-2129-448C-A8E4-DF3B3E629B28}</Project>
       <Name>SaveImageToDatabaseSampleApp.iOS</Name>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Droid\SaveImageToDatabaseSampleApp.Droid.csproj">
+      <Project>{BCDB5439-DD0A-4ACC-A7B4-7AEC11C2C98A}</Project>
+      <Name>SaveImageToDatabaseSampleApp.Droid</Name>
       <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
       <Private>False</Private>
     </ProjectReference>
