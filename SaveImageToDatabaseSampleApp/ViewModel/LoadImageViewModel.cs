@@ -130,7 +130,7 @@ namespace SaveImageToDatabaseSampleApp
 
         void ExecuteClearImageButtonCommand()
         {
-            AnalyticsHelpers.TrackEvent(AnalyticsConstants.ClearButtonTapped);
+            AnalyticsServices.Track(AnalyticsConstants.ClearButtonTapped);
 
             AreImageAndClearButtonVisible = false;
         }
@@ -149,7 +149,7 @@ namespace SaveImageToDatabaseSampleApp
 
         async Task LoadImageFromDatabaseAsync(string imageUrl)
         {
-            AnalyticsHelpers.TrackEvent(AnalyticsConstants.LoadImageFromDatabase, new Dictionary<string, string>
+			AnalyticsServices.Track(AnalyticsConstants.LoadImageFromDatabase, new Dictionary<string, string>
             {
                 { AnalyticsConstants.ImageUrl, imageUrl }
             });
@@ -192,14 +192,14 @@ namespace SaveImageToDatabaseSampleApp
                         DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStream;
                         AreImageAndClearButtonVisible = true;
 
-                        AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+						AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
                         {
                             { AnalyticsConstants.ImageDownloadSuccessful, imageUrl }
                         });
                     }
                     else
                     {
-                        AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+						AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
                         {
                             { AnalyticsConstants.ImageDownloadFailed, imageUrl }
                         });
@@ -209,7 +209,7 @@ namespace SaveImageToDatabaseSampleApp
             }
             catch (Exception e)
             {
-                AnalyticsHelpers.TrackEvent(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+				AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
                 {
                     { AnalyticsConstants.ImageDownloadFailed, imageUrl }
                 });

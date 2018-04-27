@@ -4,9 +4,9 @@ using Xamarin.UITest;
 
 namespace SaveImageToDatabaseSampleApp.UITests
 {
-    public class SmokeTests : BaseTest
+    public class LaunchTests : BaseTest
     {
-        public SmokeTests(Platform platform) : base(platform)
+        public LaunchTests(Platform platform) : base(platform)
         {
         }
 

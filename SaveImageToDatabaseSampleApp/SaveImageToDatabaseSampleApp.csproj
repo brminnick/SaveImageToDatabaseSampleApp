@@ -5,20 +5,22 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Folder Include="Data\" />
-		<Folder Include="Helpers\" />
 		<Folder Include="Model\" />
 		<Folder Include="Pages\" />
 		<Folder Include="Services\" />
 		<Folder Include="ViewModel\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
-		<PackageReference Include="Microsoft.Azure.Mobile.Crashes" Version="0.17.1" />
-		<PackageReference Include="Microsoft.Azure.Mobile.Analytics" Version="0.17.1" />
-		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.9" />
-		<PackageReference Include="Xam.Plugins.Forms.CustomReturnEntry" Version="3.2.1" />
-		<PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
+		<PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.10" />
+		<PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.6.0" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.6.0" />
+		<PackageReference Include="Xam.Plugins.Forms.CustomReturnEntry" Version="4.1.0-pre1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Helpers\AnalyticsHelpers.cs" />
 	</ItemGroup>
 	<Import Project="..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
 </Project>

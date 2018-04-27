@@ -1,6 +1,4 @@
-﻿using System;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 using SaveImageToDatabaseSampleApp.Shared;
 
@@ -22,17 +20,7 @@ namespace SaveImageToDatabaseSampleApp
         {
             base.OnStart();
 
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    AnalyticsHelpers.Start(AnalyticsConstants.MobileCenteriOSAPIKey);
-                    break;
-                case Device.Android:
-                    AnalyticsHelpers.Start(AnalyticsConstants.MobileCenterAndroidAPIKey);
-                    break;
-                default:
-                    throw new NotSupportedException("Runtime Platform Unsupported");
-            }
+			AnalyticsServices.Start();
         }
         #endregion
     }
