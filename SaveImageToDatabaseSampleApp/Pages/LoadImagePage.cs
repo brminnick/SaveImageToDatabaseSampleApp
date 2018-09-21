@@ -1,7 +1,5 @@
 ﻿using Xamarin.Forms;
 
-using EntryCustomReturn.Forms.Plugin.Abstractions;
-
 using SaveImageToDatabaseSampleApp.Shared;
 
 namespace SaveImageToDatabaseSampleApp
@@ -26,10 +24,10 @@ namespace SaveImageToDatabaseSampleApp
             var imageUrlEntry = new Entry
             {
                 AutomationId = AutomationIdConstants.ImageUrlEntry,
+                ReturnType = ReturnType.Go
             };
             imageUrlEntry.SetBinding(Entry.TextProperty, nameof(LoadImageViewModel.ImageUrlEntryText));
-            imageUrlEntry.SetBinding(CustomReturnEffect.ReturnCommandProperty, nameof(LoadImageViewModel.LoadImageButtonCommand));
-            CustomReturnEffect.SetReturnType(imageUrlEntry, ReturnType.Go);
+            imageUrlEntry.SetBinding(Entry.ReturnCommandProperty, nameof(LoadImageViewModel.LoadImageButtonCommand));
 
             var loadImageButton = new Button
             {

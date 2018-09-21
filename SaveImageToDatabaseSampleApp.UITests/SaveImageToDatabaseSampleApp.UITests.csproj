@@ -26,11 +26,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Xamarin.UITest">
-      <HintPath>..\packages\Xamarin.UITest.2.2.4\lib\net45\Xamarin.UITest.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.UITest">
+      <HintPath>..\packages\Xamarin.UITest.2.2.6\lib\net45\Xamarin.UITest.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -50,7 +50,7 @@
     <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\iOS\SaveImageToDatabaseSampleApp.iOS.csproj">
+    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.iOS\SaveImageToDatabaseSampleApp.iOS.csproj">
       <Project>{217DCAB1-2129-448C-A8E4-DF3B3E629B28}</Project>
       <Name>SaveImageToDatabaseSampleApp.iOS</Name>
       <ReferenceOutputAssembly>False</ReferenceOutputAssembly>

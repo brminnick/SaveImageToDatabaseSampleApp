@@ -149,7 +149,7 @@ namespace SaveImageToDatabaseSampleApp
 
         async Task LoadImageFromDatabaseAsync(string imageUrl)
         {
-			AnalyticsServices.Track(AnalyticsConstants.LoadImageFromDatabase, new Dictionary<string, string>
+            AnalyticsServices.Track(AnalyticsConstants.LoadImageFromDatabase, new Dictionary<string, string>
             {
                 { AnalyticsConstants.ImageUrl, imageUrl }
             });
@@ -177,7 +177,7 @@ namespace SaveImageToDatabaseSampleApp
             {
                 using (var httpResponse = await Client.GetAsync(imageUrl).ConfigureAwait(false))
                 {
-                    if (httpResponse.StatusCode == HttpStatusCode.OK)
+                    if (httpResponse.StatusCode is HttpStatusCode.OK)
                     {
                         downloadedImage = await httpResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
@@ -192,14 +192,14 @@ namespace SaveImageToDatabaseSampleApp
                         DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStream;
                         AreImageAndClearButtonVisible = true;
 
-						AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+                        AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
                         {
                             { AnalyticsConstants.ImageDownloadSuccessful, imageUrl }
                         });
                     }
                     else
                     {
-						AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+                        AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
                         {
                             { AnalyticsConstants.ImageDownloadFailed, imageUrl }
                         });
@@ -209,7 +209,7 @@ namespace SaveImageToDatabaseSampleApp
             }
             catch (Exception e)
             {
-				AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
+                AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
                 {
                     { AnalyticsConstants.ImageDownloadFailed, imageUrl }
                 });
@@ -228,11 +228,9 @@ namespace SaveImageToDatabaseSampleApp
             IsLoadImageButtonEnabled = !isImageDownloading;
         }
 
-        bool IsUrInDatabase(string url) =>
-            DownloadedImageModelList.Any(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
+        bool IsUrInDatabase(string url) => DownloadedImageModelList.Any(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
 
-        async Task RefreshDownloadedImageModelList() =>
-            DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync();
+        async Task RefreshDownloadedImageModelList() => DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync();
 
         void OnImageDownloadFailed(string failureMessage) => ImageDownloadFailed?.Invoke(this, failureMessage);
         #endregion
