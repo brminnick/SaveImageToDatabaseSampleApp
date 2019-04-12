@@ -1,68 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DC3945FD-BC09-40CF-A605-2875BBE56A29}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>SaveImageToDatabaseSampleApp.UITests</RootNamespace>
-    <AssemblyName>SaveImageToDatabaseSampleApp.UITests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.UITest">
-      <HintPath>..\packages\Xamarin.UITest.2.2.6\lib\net45\Xamarin.UITest.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AppInitializer.cs" />
-    <Compile Include="Pages\BasePage.cs" />
-    <Compile Include="Pages\LoadImagePage.cs" />
-    <Compile Include="Tests\BaseTest.cs" />
-    <Compile Include="Tests\LoadImageTests.cs" />
-    <Compile Include="Tests\ReplTests.cs" />
-    <Compile Include="Tests\LaunchTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\" />
-    <Folder Include="Tests\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.iOS\SaveImageToDatabaseSampleApp.iOS.csproj">
-      <Project>{217DCAB1-2129-448C-A8E4-DF3B3E629B28}</Project>
-      <Name>SaveImageToDatabaseSampleApp.iOS</Name>
-      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Droid\SaveImageToDatabaseSampleApp.Droid.csproj">
-      <Project>{BCDB5439-DD0A-4ACC-A7B4-7AEC11C2C98A}</Project>
-      <Name>SaveImageToDatabaseSampleApp.Droid</Name>
-      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{DC3945FD-BC09-40CF-A605-2875BBE56A29}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <RootNamespace>SaveImageToDatabaseSampleApp.UITests</RootNamespace>
+        <AssemblyName>SaveImageToDatabaseSampleApp.UITests</AssemblyName>
+        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug</OutputPath>
+        <DefineConstants>DEBUG;</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Xamarin.UITest" Version="2.2.7.2002-dev" />
+        <PackageReference Include="NUnit" Version="2.6.4" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="AppInitializer.cs" />
+        <Compile Include="Pages\BasePage.cs" />
+        <Compile Include="Pages\LoadImagePage.cs" />
+        <Compile Include="Tests\BaseTest.cs" />
+        <Compile Include="Tests\LoadImageTests.cs" />
+        <Compile Include="Tests\ReplTests.cs" />
+        <Compile Include="Tests\LaunchTests.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Pages\" />
+        <Folder Include="Tests\" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\SaveImageToDatabaseSampleApp.iOS\SaveImageToDatabaseSampleApp.iOS.csproj">
+            <Project>{217DCAB1-2129-448C-A8E4-DF3B3E629B28}</Project>
+            <Name>SaveImageToDatabaseSampleApp.iOS</Name>
+            <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+            <Private>False</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\SaveImageToDatabaseSampleApp.Droid\SaveImageToDatabaseSampleApp.Droid.csproj">
+            <Project>{BCDB5439-DD0A-4ACC-A7B4-7AEC11C2C98A}</Project>
+            <Name>SaveImageToDatabaseSampleApp.Droid</Name>
+            <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+            <Private>False</Private>
+        </ProjectReference>
+    </ItemGroup>
+    <Import Project="..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
+    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
