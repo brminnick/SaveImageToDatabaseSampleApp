@@ -6,20 +6,15 @@ namespace SaveImageToDatabaseSampleApp
 {
     public class LoadImagePage : ContentPage
     {
-        #region Constant Fields
-        readonly LoadImageViewModel _viewModel;
-        #endregion
-
         #region Constructors
         public LoadImagePage()
         {
-            _viewModel = new LoadImageViewModel();
-            BindingContext = _viewModel;
+            var viewModel = new LoadImageViewModel();
+            BindingContext = viewModel;
 
-            var imageUrlLabel = new Label
-            {
-                Text = "Image Url"
-            };
+            viewModel.ImageDownloadFailed += HandleImageDownloadFailed;
+
+            var imageUrlLabel = new Label { Text = "Image Url" };
 
             var imageUrlEntry = new Entry
             {
@@ -68,7 +63,7 @@ namespace SaveImageToDatabaseSampleApp
             {
                 Content = new StackLayout
                 {
-                    Children ={
+                    Children = {
                         imageUrlLabel,
                         imageUrlEntry,
                         loadImageButton,
@@ -82,25 +77,9 @@ namespace SaveImageToDatabaseSampleApp
         #endregion
 
         #region Methods
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
 
-            _viewModel.ImageDownloadFailed += HandleImageDownloadFailed;
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-
-            _viewModel.ImageDownloadFailed -= HandleImageDownloadFailed;
-        }
-
-        void HandleImageDownloadFailed(object sender, string message)
-        {
-            Device.BeginInvokeOnMainThread(async () =>
-                   await DisplayAlert("Error Downloading Image", message, "Ok"));
-        }
+        void HandleImageDownloadFailed(object sender, string message) =>
+            Device.BeginInvokeOnMainThread(async () => await DisplayAlert("Error Downloading Image", message, "Ok"));
         #endregion
     }
 }

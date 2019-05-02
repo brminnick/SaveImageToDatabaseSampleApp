@@ -8,23 +8,23 @@ namespace SaveImageToDatabaseSampleApp
         #region Methods
         public static async Task<List<DownloadedImageModel>> GetAllDownloadedImagesAsync()
         {
-            var databaseConnection = await GetDatabaseConnectionAsync();
+            var databaseConnection = await GetDatabaseConnectionAsync().ConfigureAwait(false);
 
-            return await databaseConnection.Table<DownloadedImageModel>().ToListAsync();
+            return await databaseConnection.Table<DownloadedImageModel>().ToListAsync().ConfigureAwait(false);
         }
 
         public static async Task<DownloadedImageModel> GetDownloadedImageAsync(string imageUrl)
         {
-            var databaseConnection = await GetDatabaseConnectionAsync();
+            var databaseConnection = await GetDatabaseConnectionAsync().ConfigureAwait(false);
 
-            return await databaseConnection.Table<DownloadedImageModel>().Where(x => x.ImageUrl.Equals(imageUrl)).FirstOrDefaultAsync();
+            return await databaseConnection.Table<DownloadedImageModel>().Where(x => x.ImageUrl.Equals(imageUrl)).FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
         public static async Task SaveDownloadedImage(DownloadedImageModel downloadedImage)
         {
-            var databaseConnection = await GetDatabaseConnectionAsync();
+            var databaseConnection = await GetDatabaseConnectionAsync().ConfigureAwait(false);
 
-            await databaseConnection.InsertOrReplaceAsync(downloadedImage);
+            await databaseConnection.InsertOrReplaceAsync(downloadedImage).ConfigureAwait(false);
         }
         #endregion
     }

@@ -6,7 +6,6 @@ namespace SaveImageToDatabaseSampleApp
 {
     public class App : Application
     {
-        #region Constructors
         public App()
         {
             MainPage = new NavigationPage(new LoadImagePage())
@@ -22,6 +21,5 @@ namespace SaveImageToDatabaseSampleApp
 
 			AnalyticsServices.Start();
         }
-        #endregion
     }
 }

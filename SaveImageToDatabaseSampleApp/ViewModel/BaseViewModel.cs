@@ -2,26 +2,33 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using AsyncAwaitBestPractices;
 
 namespace SaveImageToDatabaseSampleApp
 {
-	public class BaseViewModel : INotifyPropertyChanged
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
+    public class BaseViewModel : INotifyPropertyChanged
+    {
+        readonly WeakEventManager _propertyChangedEventManager = new WeakEventManager();
 
-		protected void SetProperty<T>(ref T backingStore, T value, Action onChanged = null, [CallerMemberName] string propertyname = "")
-		{
-			if (EqualityComparer<T>.Default.Equals(backingStore, value))
-				return;
+        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+        {
+            add => _propertyChangedEventManager.AddEventHandler(value);
+            remove => _propertyChangedEventManager.RemoveEventHandler(value);
+        }
 
-			backingStore = value;
+        protected void SetProperty<T>(ref T backingStore, T value, Action onChanged = null, [CallerMemberName] string propertyname = "")
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+                return;
 
-			onChanged?.Invoke();
+            backingStore = value;
 
-			OnPropertyChanged(propertyname);
-		}
+            onChanged?.Invoke();
 
-		void OnPropertyChanged([CallerMemberName]string name = "") =>
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-	}
+            OnPropertyChanged(propertyname);
+        }
+
+        void OnPropertyChanged([CallerMemberName]string name = "") =>
+            _propertyChangedEventManager.HandleEvent(this, new PropertyChangedEventArgs(name), nameof(INotifyPropertyChanged.PropertyChanged));
+    }
 }

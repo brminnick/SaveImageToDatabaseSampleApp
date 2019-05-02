@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
 
+using AsyncAwaitBestPractices;
+using AsyncAwaitBestPractices.MVVM;
+
 using Xamarin.Forms;
 
 using SaveImageToDatabaseSampleApp.Shared;
@@ -16,7 +19,7 @@ namespace SaveImageToDatabaseSampleApp
     public class LoadImageViewModel : BaseViewModel
     {
         #region Constant Fields
-        const int _downloadImageTimeoutInSeconds = 15;
+        readonly WeakEventManager<string> _imageDownloadFailedEventManager = new WeakEventManager<string>();
         readonly Lazy<HttpClient> _clientHolder = new Lazy<HttpClient>(() => CreateHttpClient(TimeSpan.FromSeconds(10)));
         #endregion
 
@@ -34,18 +37,22 @@ namespace SaveImageToDatabaseSampleApp
         #endregion
 
         #region Events
-        public event EventHandler<string> ImageDownloadFailed;
+        public event EventHandler<string> ImageDownloadFailed
+        {
+            add => _imageDownloadFailedEventManager.AddEventHandler(value);
+            remove => _imageDownloadFailedEventManager.RemoveEventHandler(value);
+        }
         #endregion
 
         #region Properties
         public ICommand LoadImageButtonCommand => _loadImageButtonTapped ??
-            (_loadImageButtonTapped = new Command(async () => await ExecuteLoadImageButtonCommand(DownloadImageButtonText, ImageUrlEntryText)));
+            (_loadImageButtonTapped = new AsyncCommand(() => ExecuteLoadImageButtonCommand(DownloadImageButtonText, ImageUrlEntryText), continueOnCapturedContext: false));
+
+        public ICommand InitializeViewModelCommand => _initializeViewModelCommand ??
+            (_initializeViewModelCommand = new AsyncCommand(ExecuteInitializeViewModelCommand, continueOnCapturedContext: false));
 
         public ICommand ClearImageButtonCommand => _clearImageButtonCommand ??
             (_clearImageButtonCommand = new Command(ExecuteClearImageButtonCommand));
-
-        public ICommand InitializeViewModelCommand => _initializeViewModelCommand ??
-            (_initializeViewModelCommand = new Command(async () => await ExecuteInitializeViewModelCommand()));
 
         public bool IsImageDownloading
         {
@@ -62,7 +69,7 @@ namespace SaveImageToDatabaseSampleApp
         public string ImageUrlEntryText
         {
             get => _imageUrlEntryText;
-            set => SetProperty(ref _imageUrlEntryText, value, async () => await UpdateDownloadButtonText(ImageUrlEntryText));
+            set => SetProperty(ref _imageUrlEntryText, value, () => UpdateDownloadButtonText(ImageUrlEntryText).SafeFireAndForget(false));
         }
 
         public ImageSource DownloadedImageSource
@@ -218,7 +225,7 @@ namespace SaveImageToDatabaseSampleApp
             finally
             {
                 SetIsImageDownloading(false);
-                await UpdateDownloadButtonText(imageUrl);
+                await UpdateDownloadButtonText(imageUrl).ConfigureAwait(false);
             }
         }
 
@@ -232,7 +239,7 @@ namespace SaveImageToDatabaseSampleApp
 
         async Task RefreshDownloadedImageModelList() => DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync();
 
-        void OnImageDownloadFailed(string failureMessage) => ImageDownloadFailed?.Invoke(this, failureMessage);
+        void OnImageDownloadFailed(string failureMessage) => _imageDownloadFailedEventManager.HandleEvent(this, failureMessage, nameof(ImageDownloadFailed));
         #endregion
     }
 }

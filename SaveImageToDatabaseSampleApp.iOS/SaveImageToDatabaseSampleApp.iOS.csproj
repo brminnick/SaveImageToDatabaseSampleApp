@@ -95,6 +95,7 @@
         <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.14.0" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0" />
         <PackageReference Include="Xamarin.TestCloud.Agent" Version="0.21.8" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="2.1.1" />
     </ItemGroup>
     <ItemGroup>
         <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />

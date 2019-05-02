@@ -27,9 +27,9 @@ namespace SaveImageToDatabaseSampleApp
 		protected static async ValueTask<SQLiteAsyncConnection> GetDatabaseConnectionAsync()
 		{
 			if (!_isInitialized)
-				await Initialize();
+				await Initialize().ConfigureAwait(false);
 
-			return DatabaseConnection;
+            return DatabaseConnection;
 		}
 
 		static async Task Initialize()

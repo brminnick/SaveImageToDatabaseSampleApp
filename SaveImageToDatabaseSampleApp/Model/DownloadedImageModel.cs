@@ -21,7 +21,7 @@ namespace SaveImageToDatabaseSampleApp
         {
             try
             {
-                if (DownloadedImageBlob == null)
+                if (DownloadedImageBlob is null)
                     return null;
 
                 var imageByteArray = DownloadedImageBlob;
@@ -30,7 +30,7 @@ namespace SaveImageToDatabaseSampleApp
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                AnalyticsServices.Report(e);
                 return null;
             }
         }
