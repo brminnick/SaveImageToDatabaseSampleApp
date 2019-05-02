@@ -10,11 +10,7 @@ namespace SaveImageToDatabaseSampleApp.UITests
         {
         }
 
-        [Ignore]
-        [Test]
-        public void Repl()
-        {
-            App.Repl();
-        }
+        [Test, Ignore("REPL used for manually navigating the UI")]
+        public void Repl() => App.Repl();
     }
 }
