@@ -90,12 +90,13 @@
         <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
         <PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.14" />
-        <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
-        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.0.0" />
-        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.0.0" />
+        <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
+        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.1.1" />
+        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.1.1" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0" />
         <PackageReference Include="Xamarin.TestCloud.Agent" Version="0.21.8" />
-        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="2.1.1" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="3.0.0-pre2" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     </ItemGroup>
     <ItemGroup>
         <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -103,7 +104,6 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Resources\" />
-        <Folder Include="Services\" />
         <Folder Include="CustomRenderers\" />
     </ItemGroup>
     <ItemGroup>
@@ -116,7 +116,6 @@
     <ItemGroup>
         <Compile Include="Main.cs" />
         <Compile Include="AppDelegate.cs" />
-        <Compile Include="Services\SQLite_iOS.cs" />
         <Compile Include="CustomRenderers\EntryWithClearButtonRenderer.cs" />
         <Compile Include="CustomRenderers\NavigationPageCustomRenderer.cs" />
     </ItemGroup>

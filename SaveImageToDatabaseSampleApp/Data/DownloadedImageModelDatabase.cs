@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SaveImageToDatabaseSampleApp
 {
-    public abstract class DownloadedImageModelDatabase : BaseDatabase
+    abstract class DownloadedImageModelDatabase : BaseDatabase
     {
         #region Methods
         public static async Task<List<DownloadedImageModel>> GetAllDownloadedImagesAsync()

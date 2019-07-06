@@ -20,7 +20,7 @@ namespace SaveImageToDatabaseSampleApp
     {
         #region Constant Fields
         readonly WeakEventManager<string> _imageDownloadFailedEventManager = new WeakEventManager<string>();
-        readonly Lazy<HttpClient> _clientHolder = new Lazy<HttpClient>(() => CreateHttpClient(TimeSpan.FromSeconds(10)));
+        readonly Lazy<HttpClient> _clientHolder = new Lazy<HttpClient>(CreateHttpClient);
         #endregion
 
         #region Fields
@@ -33,7 +33,7 @@ namespace SaveImageToDatabaseSampleApp
         #endregion
 
         #region Constructors
-        public LoadImageViewModel() => InitializeViewModelCommand?.Execute(null);
+        public LoadImageViewModel() => ExecuteInitializeViewModelCommand().SafeFireAndForget();
         #endregion
 
         #region Events
@@ -46,10 +46,10 @@ namespace SaveImageToDatabaseSampleApp
 
         #region Properties
         public ICommand LoadImageButtonCommand => _loadImageButtonTapped ??
-            (_loadImageButtonTapped = new AsyncCommand(() => ExecuteLoadImageButtonCommand(DownloadImageButtonText, ImageUrlEntryText), continueOnCapturedContext: false));
+            (_loadImageButtonTapped = new AsyncCommand(() => ExecuteLoadImageButtonCommand(DownloadImageButtonText, ImageUrlEntryText)));
 
         public ICommand InitializeViewModelCommand => _initializeViewModelCommand ??
-            (_initializeViewModelCommand = new AsyncCommand(ExecuteInitializeViewModelCommand, continueOnCapturedContext: false));
+            (_initializeViewModelCommand = new AsyncCommand(ExecuteInitializeViewModelCommand));
 
         public ICommand ClearImageButtonCommand => _clearImageButtonCommand ??
             (_clearImageButtonCommand = new Command(ExecuteClearImageButtonCommand));
@@ -69,7 +69,7 @@ namespace SaveImageToDatabaseSampleApp
         public string ImageUrlEntryText
         {
             get => _imageUrlEntryText;
-            set => SetProperty(ref _imageUrlEntryText, value, () => UpdateDownloadButtonText(ImageUrlEntryText).SafeFireAndForget(false));
+            set => SetProperty(ref _imageUrlEntryText, value, () => UpdateDownloadButtonText(ImageUrlEntryText).SafeFireAndForget());
         }
 
         public ImageSource DownloadedImageSource
@@ -100,7 +100,7 @@ namespace SaveImageToDatabaseSampleApp
         #endregion
 
         #region Methods
-        static HttpClient CreateHttpClient(TimeSpan timeout)
+        static HttpClient CreateHttpClient()
         {
             HttpClient client;
 
@@ -115,7 +115,6 @@ namespace SaveImageToDatabaseSampleApp
                     break;
 
             }
-            client.Timeout = timeout;
             client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
 
             return client;
@@ -176,8 +175,6 @@ namespace SaveImageToDatabaseSampleApp
                 return;
             }
 
-            byte[] downloadedImage;
-
             SetIsImageDownloading(true);
 
             try
@@ -186,7 +183,7 @@ namespace SaveImageToDatabaseSampleApp
                 {
                     if (httpResponse.StatusCode is HttpStatusCode.OK)
                     {
-                        downloadedImage = await httpResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+                        var downloadedImage = await httpResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
                         var downloadedImageModel = new DownloadedImageModel
                         {
@@ -237,7 +234,7 @@ namespace SaveImageToDatabaseSampleApp
 
         bool IsUrInDatabase(string url) => DownloadedImageModelList.Any(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
 
-        async Task RefreshDownloadedImageModelList() => DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync();
+        async Task RefreshDownloadedImageModelList() => DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync().ConfigureAwait(false);
 
         void OnImageDownloadFailed(string failureMessage) => _imageDownloadFailedEventManager.HandleEvent(this, failureMessage, nameof(ImageDownloadFailed));
         #endregion
