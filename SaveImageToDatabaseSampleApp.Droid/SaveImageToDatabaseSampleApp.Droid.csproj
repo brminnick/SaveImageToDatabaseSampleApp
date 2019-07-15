@@ -16,24 +16,25 @@
         <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
         <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
         <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
+        <DebugType>portable</DebugType>
         <Optimize>false</Optimize>
         <OutputPath>bin\Debug</OutputPath>
         <DefineConstants>DEBUG;</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
-        <AndroidLinkMode>None</AndroidLinkMode>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
         <AndroidTlsProvider>btls</AndroidTlsProvider>
         <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+        <AndroidDexTool>d8</AndroidDexTool>
         <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
-        <DebugType>pdbonly</DebugType>
+        <DebugType></DebugType>
         <Optimize>true</Optimize>
         <OutputPath>bin\Release</OutputPath>
         <ErrorReport>prompt</ErrorReport>
@@ -44,7 +45,8 @@
         <AotAssemblies>true</AotAssemblies>
         <EnableProguard>true</EnableProguard>
         <AndroidTlsProvider>btls</AndroidTlsProvider>
-        <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
+        <AndroidDexTool>d8</AndroidDexTool>
+        <AndroidLinkTool>r8</AndroidLinkTool>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />
@@ -56,13 +58,13 @@
         <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
         <PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.14" />
-        <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
+        <PackageReference Include="Xamarin.Forms" Version="4.1.0.581479" />
         <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.1.1" />
         <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.1.1" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0" />
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.0" />
-        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="3.0.0-pre2" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="3.0.0-pre4" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
