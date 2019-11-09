@@ -9,14 +9,14 @@ namespace SaveImageToDatabaseSampleApp
 {
     public class DownloadedImageModel
     {
-		public ImageSource DownloadedImageAsImageStream => GetImageStream();
+		public ImageSource? DownloadedImageAsImageStream => GetImageStream();
 
         [PrimaryKey]
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
 
-        public byte[] DownloadedImageBlob { get; set; }
+        public byte[]? DownloadedImageBlob { get; set; }
 
-        ImageSource GetImageStream()
+        ImageSource? GetImageStream()
         {
             try
             {

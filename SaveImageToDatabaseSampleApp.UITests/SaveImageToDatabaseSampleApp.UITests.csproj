@@ -9,6 +9,8 @@
         <AssemblyName>SaveImageToDatabaseSampleApp.UITests</AssemblyName>
         <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
         <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+        <Nullable>enable</Nullable>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
@@ -26,7 +28,7 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.UITest" Version="3.0.1-dev1" />
+        <PackageReference Include="Xamarin.UITest" Version="3.0.4-dev4" />
         <PackageReference Include="NUnit" Version="3.12.0" />
     </ItemGroup>
     <ItemGroup>

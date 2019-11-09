@@ -7,7 +7,7 @@
         public const string AppCenterAndroidApiKey = "b5229d82-1c2e-4b3d-9e5e-8bedc9fdff26";
         #endregion
 
-        #region Main
+        #region MainPage
         public const string ClearButtonTapped = "Clear Button Tapped";
         public const string DownloadImage = "Download Image";
         public const string ImageDownloadSuccessful = "Image Download Successful";

@@ -6,7 +6,6 @@ namespace SaveImageToDatabaseSampleApp
 {
     public class LoadImagePage : ContentPage
     {
-        #region Constructors
         public LoadImagePage()
         {
             var viewModel = new LoadImageViewModel();
@@ -74,12 +73,8 @@ namespace SaveImageToDatabaseSampleApp
                 }
             };
         }
-        #endregion
-
-        #region Methods
 
         void HandleImageDownloadFailed(object sender, string message) =>
             Device.BeginInvokeOnMainThread(async () => await DisplayAlert("Error Downloading Image", message, "Ok"));
-        #endregion
     }
 }

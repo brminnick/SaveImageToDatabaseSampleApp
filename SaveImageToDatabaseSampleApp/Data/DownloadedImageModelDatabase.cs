@@ -5,7 +5,6 @@ namespace SaveImageToDatabaseSampleApp
 {
     abstract class DownloadedImageModelDatabase : BaseDatabase
     {
-        #region Methods
         public static async Task<List<DownloadedImageModel>> GetAllDownloadedImagesAsync()
         {
             var databaseConnection = await GetDatabaseConnectionAsync().ConfigureAwait(false);
@@ -26,7 +25,6 @@ namespace SaveImageToDatabaseSampleApp
 
             await databaseConnection.InsertOrReplaceAsync(downloadedImage).ConfigureAwait(false);
         }
-        #endregion
     }
 }
 

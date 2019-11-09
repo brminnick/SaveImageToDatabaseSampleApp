@@ -14,7 +14,6 @@ namespace SaveImageToDatabaseSampleApp
 {
     public static class AnalyticsServices
     {
-        #region Methods
         public static void Start()
         {
             switch (Xamarin.Forms.Device.RuntimePlatform)
@@ -30,16 +29,16 @@ namespace SaveImageToDatabaseSampleApp
             }
         }
 
-        public static void Track(string trackIdentifier, IDictionary<string, string> table = null) => Analytics.TrackEvent(trackIdentifier, table);
+        public static void Track(string trackIdentifier, IDictionary<string, string>? table = null) => Analytics.TrackEvent(trackIdentifier, table);
 
         public static void Track(string trackIdentifier, string key, string value) => Analytics.TrackEvent(trackIdentifier, new Dictionary<string, string> { { key, value } });
 
-        public static TimedEvent TrackTime(string trackIdentifier, IDictionary<string, string> table = null) => new TimedEvent(trackIdentifier, table);
+        public static TimedEvent TrackTime(string trackIdentifier, IDictionary<string, string>? table = null) => new TimedEvent(trackIdentifier, table);
 
         public static TimedEvent TrackTime(string trackIdentifier, string key, string value) => TrackTime(trackIdentifier, new Dictionary<string, string> { { key, value } });
 
         public static void Report(Exception exception,
-                                  IDictionary<string, string> properties = null,
+                                  IDictionary<string, string>? properties = null,
                                   [CallerMemberName] string callerMemberName = "",
                                   [CallerLineNumber] int lineNumber = 0,
                                   [CallerFilePath] string filePath = "")
@@ -62,17 +61,15 @@ namespace SaveImageToDatabaseSampleApp
         }
 
         static void Start(string appCenterAPIKey) => AppCenter.Start(appCenterAPIKey, typeof(Crashes), typeof(Analytics));
-        #endregion
     }
 
-    #region Classes
     public class TimedEvent
     {
         readonly Stopwatch _stopwatch;
         readonly string _trackIdentifier;
 
 
-        public TimedEvent(string trackIdentifier, IDictionary<string, string> dictionary)
+        public TimedEvent(string trackIdentifier, IDictionary<string, string>? dictionary)
         {
             Data = dictionary ?? new Dictionary<string, string>();
             _trackIdentifier = trackIdentifier;
@@ -89,6 +86,5 @@ namespace SaveImageToDatabaseSampleApp
             AnalyticsServices.Track($"{_trackIdentifier} [Timed Event]", Data);
         }
     }
-    #endregion
 }
 

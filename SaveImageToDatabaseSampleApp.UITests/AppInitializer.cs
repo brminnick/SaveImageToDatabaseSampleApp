@@ -4,17 +4,11 @@ namespace SaveImageToDatabaseSampleApp.UITests
 {
     public static class AppInitializer
     {
-        public static IApp StartApp(Platform platform)
+        public static IApp StartApp(Platform platform) => platform switch
         {
-            switch (platform)
-            {
-                case Platform.Android:
-                    return ConfigureApp.Android.StartApp();
-                case Platform.iOS:
-                    return ConfigureApp.iOS.StartApp();
-                default:
-                    throw new System.NotSupportedException("Platform Not Supported");
-            }
-        }
+            Platform.Android => ConfigureApp.Android.StartApp(),
+            Platform.iOS => ConfigureApp.iOS.StartApp(),
+            _ => throw new System.NotSupportedException("Platform Not Supported"),
+        };
     }
 }

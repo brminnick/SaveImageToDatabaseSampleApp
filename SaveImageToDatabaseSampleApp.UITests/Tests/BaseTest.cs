@@ -1,36 +1,32 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 using Xamarin.UITest;
 
 namespace SaveImageToDatabaseSampleApp.UITests
 {
-	[TestFixture(Platform.Android)]
-	[TestFixture(Platform.iOS)]
-	public abstract class BaseTest
-	{
-		#region Constant Fields
-		readonly Platform _platform;
-		#endregion
+    [TestFixture(Platform.Android)]
+    [TestFixture(Platform.iOS)]
+    public abstract class BaseTest
+    {
+        readonly Platform _platform;
 
-		#region Constructors
-		protected BaseTest(Platform platform) => _platform = platform;
-		#endregion
+        IApp? _app;
+        LoadImagePage? _loadImagePage;
 
-		#region Properties
-		protected IApp App { get; private set; }
-		protected LoadImagePage LoadImagePage { get; private set; }
-		#endregion
+        protected BaseTest(Platform platform) => _platform = platform;
 
-		#region Methods
-		[SetUp]
-		public virtual void TestSetup()
-		{
-			App = AppInitializer.StartApp(_platform);
-			LoadImagePage = new LoadImagePage(App);
+        protected IApp App => _app ?? throw new NullReferenceException();
+        protected LoadImagePage LoadImagePage => _loadImagePage ?? throw new NullReferenceException();
 
-			App.Screenshot("App Launched");
-		}
-		#endregion
-	}
+        [SetUp]
+        public virtual void TestSetup()
+        {
+            _app = AppInitializer.StartApp(_platform);
+            _loadImagePage = new LoadImagePage(App);
+
+            App.Screenshot("App Launched");
+        }
+    }
 }
 
