@@ -22,11 +22,10 @@ namespace SaveImageToDatabaseSampleApp
         readonly Lazy<HttpClient> _clientHolder = new Lazy<HttpClient>(CreateHttpClient);
 
         bool _isImageDownloading, _isImageVisible, _isLoadImageButtonEnabled;
-        string _imageUrlEntryText = @"https://blobstoragesampleapp.blob.core.windows.net/photos/Punday";
-        string _downloadImageButtonText;
-        ImageSource _downloadedImageSource;
-        ICommand _loadImageButtonTapped, _clearImageButtonCommand, _initializeViewModelCommand;
-        List<DownloadedImageModel> _imageDatabaseModelList;
+        string _imageUrlEntryText = UrlConstants.ImageUrl;
+        string _downloadImageButtonText = string.Empty;
+        ImageSource? _downloadedImageSource;
+        ICommand? _loadImageButtonTapped, _clearImageButtonCommand, _initializeViewModelCommand;
 
         public LoadImageViewModel() => ExecuteInitializeViewModelCommand().SafeFireAndForget();
 
@@ -58,7 +57,7 @@ namespace SaveImageToDatabaseSampleApp
             set => SetProperty(ref _imageUrlEntryText, value, () => UpdateDownloadButtonText(ImageUrlEntryText).SafeFireAndForget());
         }
 
-        public ImageSource DownloadedImageSource
+        public ImageSource? DownloadedImageSource
         {
             get => _downloadedImageSource;
             set => SetProperty(ref _downloadedImageSource, value);
@@ -76,11 +75,7 @@ namespace SaveImageToDatabaseSampleApp
             set => SetProperty(ref _isLoadImageButtonEnabled, value);
         }
 
-        public List<DownloadedImageModel> DownloadedImageModelList
-        {
-            get => _imageDatabaseModelList;
-            set => SetProperty(ref _imageDatabaseModelList, value);
-        }
+        List<DownloadedImageModel> DownloadedImageModelList { get; set; } = Enumerable.Empty<DownloadedImageModel>().ToList();
 
         HttpClient Client => _clientHolder.Value;
 
@@ -209,7 +204,7 @@ namespace SaveImageToDatabaseSampleApp
             IsLoadImageButtonEnabled = !isImageDownloading;
         }
 
-        bool IsUrInDatabase(string url) => DownloadedImageModelList.Any(x => x.ImageUrl.ToUpper().Equals(url.ToUpper()));
+        bool IsUrInDatabase(string url) => DownloadedImageModelList.Any(x => x.ImageUrl.Equals(url, StringComparison.OrdinalIgnoreCase));
 
         async Task RefreshDownloadedImageModelList() => DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync().ConfigureAwait(false);
 

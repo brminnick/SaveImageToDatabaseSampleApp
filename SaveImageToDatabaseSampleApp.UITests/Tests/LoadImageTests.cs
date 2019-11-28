@@ -1,86 +1,72 @@
 ﻿using System.Threading.Tasks;
-
 using NUnit.Framework;
-
-using Xamarin.UITest;
-
 using SaveImageToDatabaseSampleApp.Shared;
+using Xamarin.UITest;
 
 namespace SaveImageToDatabaseSampleApp.UITests
 {
-	public class LoadImageTests : BaseTest
-	{
-		public LoadImageTests(Platform platform) : base(platform)
-		{
-		}
+    public class LoadImageTests : BaseTest
+    {
+        public LoadImageTests(Platform platform) : base(platform)
+        {
+        }
 
-		[TestCase(false)]
-		[TestCase(true)]
-		public async Task DownloadImageFromValidUrl(bool shouldPressKeyboardReturnButton)
-		{
-			//Arrange
+        [TestCase(false)]
+        [TestCase(true)]
+        public void DownloadImageFromValidUrl(bool shouldPressKeyboardReturnButton)
+        {
+            //Arrange
 
-			//Act
-			LoadImagePage.EnterUrl(LoadImagePage.ValidUrl);
+            //Act
+            LoadImagePage.EnterUrl(LoadImagePage.ValidUrl);
 
-			//Assert
-			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
+            //Assert
+            Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
 
-			//Act
-			switch (shouldPressKeyboardReturnButton)
-			{
-				case true:
-					LoadImagePage.TapKeyboardEnterButton();
-					break;
+            //Act
+            if (shouldPressKeyboardReturnButton)
+                LoadImagePage.TapKeyboardEnterButton();
+            else
+                LoadImagePage.TapLoadImageButton();
 
-				case false:
-					LoadImagePage.TapLoadImageButton();
-					break;
-			}
-			await LoadImagePage.WaitForNoIsDownloadingActivityIndicator();
+            LoadImagePage.WaitForNoIsDownloadingActivityIndicator();
 
-			//Assert
-			Assert.IsTrue(LoadImagePage.IsDownloadedImageShown);
-			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, LoadImagePage.LoadImageButtonText);
+            //Assert
+            Assert.IsTrue(LoadImagePage.IsDownloadedImageShown);
+            Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, LoadImagePage.LoadImageButtonText);
 
-			//Act
-			LoadImagePage.TapClearImageButton();
+            //Act
+            LoadImagePage.TapClearImageButton();
 
-			//Assert
-			Assert.IsFalse(LoadImagePage.IsDownloadedImageShown);
-			Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, LoadImagePage.LoadImageButtonText);
-		}
+            //Assert
+            Assert.IsFalse(LoadImagePage.IsDownloadedImageShown);
+            Assert.AreEqual(LoadImageButtonTextConstants.LoadImageFromDatabaseButtonText, LoadImagePage.LoadImageButtonText);
+        }
 
-		[TestCase(false)]
-		[TestCase(true)]
-		public async Task DownloadImageFromInvalidUrl(bool shouldPressKeyboardReturnButton)
-		{
-			//Arrange
+        [TestCase(false)]
+        [TestCase(true)]
+        public void DownloadImageFromInvalidUrl(bool shouldPressKeyboardReturnButton)
+        {
+            //Arrange
 
-			//Act
-			LoadImagePage.EnterUrl(LoadImagePage.InvalidUrl);
+            //Act
+            LoadImagePage.EnterUrl(LoadImagePage.InvalidUrl);
 
-			//Assert
-			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
+            //Assert
+            Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
 
-			//Act
-			switch (shouldPressKeyboardReturnButton)
-			{
-				case true:
-					LoadImagePage.TapKeyboardEnterButton();
-					break;
-				
-				case false:
-					LoadImagePage.TapLoadImageButton();
-					break;
-			}
+            //Act
+            if (shouldPressKeyboardReturnButton)
+                LoadImagePage.TapKeyboardEnterButton();
+            else
+                LoadImagePage.TapLoadImageButton();
 
-			await LoadImagePage.WaitForNoIsDownloadingActivityIndicator();
-			LoadImagePage.TapOkOnErrorPrompt();
+            LoadImagePage.WaitForNoIsDownloadingActivityIndicator();
+            LoadImagePage.TapOkOnErrorPrompt();
 
-			//Assert
-			Assert.IsFalse(LoadImagePage.IsDownloadedImageShown);
-			Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
-		}
-	}
+            //Assert
+            Assert.IsFalse(LoadImagePage.IsDownloadedImageShown);
+            Assert.AreEqual(LoadImageButtonTextConstants.DownloadImageFromUrlButtonText, LoadImagePage.LoadImageButtonText);
+        }
+    }
 }

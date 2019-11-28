@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-
-using Xamarin.UITest;
-
 using SaveImageToDatabaseSampleApp.Shared;
-
-using Query = System.Func<Xamarin.UITest.Queries.AppQuery, Xamarin.UITest.Queries.AppQuery>;
+using Xamarin.UITest;
 using Xamarin.UITest.Android;
+using Xamarin.UITest.iOS;
+using Query = System.Func<Xamarin.UITest.Queries.AppQuery, Xamarin.UITest.Queries.AppQuery>;
 
 namespace SaveImageToDatabaseSampleApp.UITests
 {
     public class LoadImagePage : BasePage
     {
-        readonly Query _loadImageButton;
-        readonly Query _imageUrlEntry;
-        readonly Query _downloadedImage;
-        readonly Query _isDownloadingActivityIndicator;
-        readonly Query _clearImageButton;
+        readonly Query _loadImageButton, _imageUrlEntry, _downloadedImage, _isDownloadingActivityIndicator, _clearImageButton;
+
         public LoadImagePage(IApp app) : base(app)
         {
             _loadImageButton = x => x.Marked(AutomationIdConstants.LoadImageButton);
@@ -27,16 +21,15 @@ namespace SaveImageToDatabaseSampleApp.UITests
             _clearImageButton = x => x.Marked(AutomationIdConstants.ClearImageButton);
         }
 
-        public string ValidUrl =>
-            @"https://www.xamarin.com/content/images/pages/branding/assets/xamarin-logo.png";
+        public string ValidUrl { get; } = UrlConstants.ImageUrl;
 
-        public string InvalidUrl => @"https://www.xamarin.com/abc123";
+        public string InvalidUrl { get; } = @"https://www.microsoft.com/abc123";
 
         public string LoadImageButtonText => GetLoadImageButtonText();
 
-        public bool IsDownloadedImageShown => App.Query(_downloadedImage)?.Length > 0;
+        public bool IsDownloadedImageShown => App.Query(_downloadedImage).Any();
 
-        public bool IsErrorPromptVisible => App.Query("Ok")?.Length > 0;
+        public bool IsErrorPromptVisible => App.Query("Ok").Any();
 
         public void EnterUrl(string url)
         {
@@ -47,7 +40,6 @@ namespace SaveImageToDatabaseSampleApp.UITests
 
         public void TapKeyboardEnterButton()
         {
-            App.ScrollUpTo(_imageUrlEntry);
             App.Tap(_imageUrlEntry);
             App.PressEnter();
             App.DismissKeyboard();
@@ -56,14 +48,12 @@ namespace SaveImageToDatabaseSampleApp.UITests
 
         public void TapLoadImageButton()
         {
-            App.ScrollUpTo(_imageUrlEntry);
             App.Tap(_loadImageButton);
             App.Screenshot("Tapped Load Image Button");
         }
 
-        public async Task WaitForNoIsDownloadingActivityIndicator(int timeoutInSeconds = 60)
+        public void WaitForNoIsDownloadingActivityIndicator(int timeoutInSeconds = 60)
         {
-            await Task.Delay(1000);
             App.WaitForNoElement(_isDownloadingActivityIndicator, "Is Downloading Activity Indicator Never Disappeared", TimeSpan.FromSeconds(timeoutInSeconds));
             App.Screenshot("Is Downloading Activity Indicator Dissapeared");
         }
@@ -76,31 +66,19 @@ namespace SaveImageToDatabaseSampleApp.UITests
 
         public void TapClearImageButton()
         {
-            App.ScrollDownTo(_clearImageButton);
             App.Tap(_clearImageButton);
             App.Screenshot("Clear Image Button Tapped");
         }
 
-        string GetLoadImageButtonText()
+        string GetLoadImageButtonText() => App switch
         {
-            if (App is AndroidApp)
-                return App.Query(_loadImageButton).First().Text;
-
-            return App.Query(_loadImageButton).First().Label;
-        }
-
-        void EnterUrlAndTapKeyboardReturnButton(string url)
-        {
-            EnterText(_imageUrlEntry, url);
-            App.Screenshot($"Entered Test: {url}");
-            App.PressEnter();
-            App.Screenshot($"Pressed Keyboard Return Button");
-            App.DismissKeyboard();
-        }
+            AndroidApp androidApp => androidApp.Query(_loadImageButton).First().Text,
+            iOSApp iOSApp => iOSApp.Query(_loadImageButton).First().Label,
+            _ => throw new NotSupportedException(),
+        };
 
         void EnterText(Query query, string url)
         {
-            App.ScrollUpTo(query);
             App.ClearText(query);
             App.EnterText(query, url);
         }

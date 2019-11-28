@@ -13,24 +13,24 @@ namespace SaveImageToDatabaseSampleApp.iOS
 {
     public class NavigationPageCustomRenderer : NavigationRenderer
     {
-        UIColor NavigationBarBackgroundColor => Color.FromHex(ColorConstants.NavigationPageBarBackgroundColorHex).ToUIColor();
-        UIColor NavigationBarTextColor => Color.FromHex(ColorConstants.NavigationPageBarTextColorHex).ToUIColor();
-
         public override void ViewDidLoad()
         {
-			base.ViewDidLoad();
+            base.ViewDidLoad();
 
-            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+            if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
-                NavigationBar.PrefersLargeTitles = true;
+                var navigationPage = (NavigationPage)Element;
+                var navigationPageBackgroundColor = navigationPage.BarBackgroundColor;
 
-                NavigationBar.LargeTitleTextAttributes = new UIStringAttributes
-                {
-                    ForegroundColor = NavigationBarTextColor
-                };
+                NavigationBar.StandardAppearance.BackgroundColor = navigationPageBackgroundColor == Color.Default
+                    ? UINavigationBar.Appearance.BarTintColor
+                    : navigationPageBackgroundColor.ToUIColor();
+
+                NavigationBar.StandardAppearance.TitleTextAttributes = NavigationBar.TitleTextAttributes;
+                NavigationBar.StandardAppearance.LargeTitleTextAttributes = NavigationBar.LargeTitleTextAttributes;
+
+                NavigationBar.ScrollEdgeAppearance = NavigationBar.StandardAppearance;
             }
-
-            NavigationBar.TintColor = NavigationBarBackgroundColor;
         }
     }
 }

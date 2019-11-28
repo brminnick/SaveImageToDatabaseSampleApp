@@ -63,11 +63,10 @@ namespace SaveImageToDatabaseSampleApp
         static void Start(string appCenterAPIKey) => AppCenter.Start(appCenterAPIKey, typeof(Crashes), typeof(Analytics));
     }
 
-    public class TimedEvent
+    public class TimedEvent : IDisposable
     {
         readonly Stopwatch _stopwatch;
         readonly string _trackIdentifier;
-
 
         public TimedEvent(string trackIdentifier, IDictionary<string, string>? dictionary)
         {

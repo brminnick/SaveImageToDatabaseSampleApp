@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constants\AutomationIdConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\LoadImageButtonTextConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\ColorConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\UrlConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Constants\" />
