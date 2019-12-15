@@ -14,20 +14,7 @@ namespace SaveImageToDatabaseSampleApp
 {
     public static class AnalyticsServices
     {
-        public static void Start()
-        {
-            switch (Xamarin.Forms.Device.RuntimePlatform)
-            {
-                case Xamarin.Forms.Device.iOS:
-                    Start(AnalyticsConstants.AppCenteriOSApiKey);
-                    break;
-                case Xamarin.Forms.Device.Android:
-                    Start(AnalyticsConstants.AppCenterAndroidApiKey);
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
+        public static void Start() => Start(AnalyticsConstants.AppCenterApiKey);
 
         public static void Track(string trackIdentifier, IDictionary<string, string>? table = null) => Analytics.TrackEvent(trackIdentifier, table);
 

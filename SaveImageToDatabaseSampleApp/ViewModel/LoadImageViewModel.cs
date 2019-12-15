@@ -81,19 +81,12 @@ namespace SaveImageToDatabaseSampleApp
 
         static HttpClient CreateHttpClient()
         {
-            HttpClient client;
-
-            switch (Device.RuntimePlatform)
+            HttpClient client = Device.RuntimePlatform switch
             {
-                case Device.iOS:
-                case Device.Android:
-                    client = new HttpClient();
-                    break;
-                default:
-                    client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip });
-                    break;
-
-            }
+                Device.iOS => new HttpClient(),
+                Device.Android => new HttpClient(),
+                _ => new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip })
+            };
             client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
 
             return client;
@@ -142,7 +135,7 @@ namespace SaveImageToDatabaseSampleApp
 
         async Task DownloadImage(string imageUrl)
         {
-            if (!imageUrl.Contains("https"))
+            if (!imageUrl.Trim().StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 OnImageDownloadFailed("URL must use https");
                 return;
