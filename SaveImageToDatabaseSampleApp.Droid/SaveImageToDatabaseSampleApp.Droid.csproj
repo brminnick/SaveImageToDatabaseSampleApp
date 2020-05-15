@@ -57,11 +57,12 @@
     <ItemGroup>
         <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
-        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.6.4" />
-        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.6.4" />
-        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="4.1.0-pre2" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.4.0-pre" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.773-pre1" />
+        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.2.1" />
+        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.2.1" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="4.1.1" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+        <PackageReference Include="Polly" Version="7.2.1" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />

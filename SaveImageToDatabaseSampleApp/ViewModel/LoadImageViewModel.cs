@@ -54,7 +54,7 @@ namespace SaveImageToDatabaseSampleApp
         public string ImageUrlEntryText
         {
             get => _imageUrlEntryText;
-            set => SetProperty(ref _imageUrlEntryText, value, () => UpdateDownloadButtonText(ImageUrlEntryText).SafeFireAndForget());
+            set => SetProperty(ref _imageUrlEntryText, value, async () => await UpdateDownloadButtonText(ImageUrlEntryText).ConfigureAwait(false));
         }
 
         public ImageSource? DownloadedImageSource
@@ -163,9 +163,9 @@ namespace SaveImageToDatabaseSampleApp
                     AreImageAndClearButtonVisible = true;
 
                     AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
-                        {
-                            { AnalyticsConstants.ImageDownloadSuccessful, imageUrl }
-                        });
+                    {
+                        { AnalyticsConstants.ImageDownloadSuccessful, imageUrl }
+                    });
                 }
                 else
                 {

@@ -2,12 +2,10 @@
 {
     public static class AutomationIdConstants
     {
-        #region MainPage
-        public const string ClearImageButton = "ClearImageButton";
-        public const string DownloadedImage = "DownloadedImage";
-        public const string ImageUrlEntry = "ImageUrlEntry";
-        public const string IsDownloadingActivityIndicator = "IsDownloadingActivityIndicator";
-        public const string LoadImageButton = "LoadImageButton";
-        #endregion
+        public const string ClearImageButton = nameof(ClearImageButton);
+        public const string DownloadedImage = nameof(DownloadedImage);
+        public const string ImageUrlEntry = nameof(ImageUrlEntry);
+        public const string IsDownloadingActivityIndicator = nameof(IsDownloadingActivityIndicator);
+        public const string LoadImageButton = nameof(LoadImageButton);
     }
 }

@@ -2,9 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Polly;
 using SQLite;
-
 using Xamarin.Essentials;
 
 namespace SaveImageToDatabaseSampleApp
@@ -18,12 +17,22 @@ namespace SaveImageToDatabaseSampleApp
 
         static SQLiteAsyncConnection DatabaseConnection => _databaseConnectionHolder.Value;
 
-        protected static async ValueTask<SQLiteAsyncConnection> GetDatabaseConnectionAsync()
+        protected static async ValueTask<SQLiteAsyncConnection> GetDatabaseConnection<T>()
         {
-            if (!DatabaseConnection.TableMappings.Any())
-                await DatabaseConnection.CreateTableAsync<DownloadedImageModel>().ConfigureAwait(false);
+            if (!DatabaseConnection.TableMappings.Any(x => x.MappedType == typeof(T)))
+            {
+                await DatabaseConnection.EnableWriteAheadLoggingAsync().ConfigureAwait(false);
+                await DatabaseConnection.CreateTablesAsync(CreateFlags.None, typeof(T)).ConfigureAwait(false);
+            }
 
             return DatabaseConnection;
+        }
+
+        protected static Task<T> AttemptAndRetry<T>(Func<Task<T>> action, int numRetries = 12)
+        {
+            return Policy.Handle<SQLiteException>().WaitAndRetryAsync(numRetries, pollyRetryAttempt).ExecuteAsync(action);
+
+            static TimeSpan pollyRetryAttempt(int attemptNumber) => TimeSpan.FromMilliseconds(Math.Pow(2, attemptNumber));
         }
     }
 }

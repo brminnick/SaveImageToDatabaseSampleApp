@@ -9,6 +9,8 @@ namespace SaveImageToDatabaseSampleApp
     {
         public App()
         {
+            Device.SetFlags(new[] { "Markup_Experimental" });
+
             var navigationPage = new Xamarin.Forms.NavigationPage(new LoadImagePage())
             {
                 BarBackgroundColor = Color.FromHex(ColorConstants.NavigationPageBarBackgroundColorHex),
