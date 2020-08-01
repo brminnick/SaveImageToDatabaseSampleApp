@@ -1,4 +1,5 @@
 ﻿using SaveImageToDatabaseSampleApp.Shared;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Markup;
 
@@ -48,6 +49,6 @@ namespace SaveImageToDatabaseSampleApp
         }
 
         void HandleImageDownloadFailed(object sender, string message) =>
-            Device.BeginInvokeOnMainThread(async () => await DisplayAlert("Error Downloading Image", message, "Ok"));
+            MainThread.BeginInvokeOnMainThread(async () => await DisplayAlert("Error Downloading Image", message, "Ok"));
     }
 }

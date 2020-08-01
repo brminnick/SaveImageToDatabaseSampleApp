@@ -201,6 +201,6 @@ namespace SaveImageToDatabaseSampleApp
 
         async Task RefreshDownloadedImageModelList() => DownloadedImageModelList = await DownloadedImageModelDatabase.GetAllDownloadedImagesAsync().ConfigureAwait(false);
 
-        void OnImageDownloadFailed(string failureMessage) => _imageDownloadFailedEventManager.HandleEvent(this, failureMessage, nameof(ImageDownloadFailed));
+        void OnImageDownloadFailed(string failureMessage) => _imageDownloadFailedEventManager.RaiseEvent(this, failureMessage, nameof(ImageDownloadFailed));
     }
 }

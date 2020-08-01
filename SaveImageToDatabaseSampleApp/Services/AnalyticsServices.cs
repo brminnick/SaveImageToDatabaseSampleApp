@@ -68,7 +68,7 @@ namespace SaveImageToDatabaseSampleApp
         public void Dispose()
         {
             _stopwatch.Stop();
-            Data.Add("Timed Event", $"{_stopwatch.Elapsed.ToString(@"ss\.fff")}s");
+            Data.Add("Timed Event", $"{_stopwatch.Elapsed:ss\\.fff}s");
             AnalyticsServices.Track($"{_trackIdentifier} [Timed Event]", Data);
         }
     }
