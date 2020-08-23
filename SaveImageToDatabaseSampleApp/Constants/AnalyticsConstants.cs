@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Essentials;
 
-namespace SaveImageToDatabaseSampleApp.Shared
+namespace SaveImageToDatabaseSampleApp
 {
     public static class AnalyticsConstants
     {
