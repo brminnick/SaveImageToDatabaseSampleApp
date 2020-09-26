@@ -8,8 +8,6 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Analytics;
 
-using SaveImageToDatabaseSampleApp.Shared;
-
 namespace SaveImageToDatabaseSampleApp
 {
     public static class AnalyticsServices
