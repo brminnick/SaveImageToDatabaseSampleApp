@@ -28,7 +28,7 @@ namespace SaveImageToDatabaseSampleApp
                         .Bind(Entry.TextProperty, nameof(LoadImageViewModel.ImageUrlEntryText))
                         .Bind(Entry.ReturnCommandProperty, nameof(LoadImageViewModel.LoadImageButtonCommand)),
 
-                    new Button { Margin = new Thickness(0, 20, 0, 0), AutomationId = AutomationIdConstants.LoadImageButton }
+                    new Button { AutomationId = AutomationIdConstants.LoadImageButton }.Margins(0, 20, 0, 0)
                         .Bind(IsEnabledProperty, nameof(LoadImageViewModel.IsLoadImageButtonEnabled))
                         .Bind(Button.CommandProperty, nameof(LoadImageViewModel.LoadImageButtonCommand))
                         .Bind(Button.TextProperty, nameof(LoadImageViewModel.DownloadImageButtonText)),
