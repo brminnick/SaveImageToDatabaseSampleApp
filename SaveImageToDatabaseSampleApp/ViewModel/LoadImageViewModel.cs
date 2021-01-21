@@ -1,33 +1,35 @@
 ﻿using System;
-using System.Net;
-using System.Linq;
-using System.Net.Http;
-using System.Windows.Input;
-using System.Threading.Tasks;
-using System.Net.Http.Headers;
 using System.Collections.Generic;
-
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using AsyncAwaitBestPractices;
 using AsyncAwaitBestPractices.MVVM;
-
-using Xamarin.Forms;
-
 using SaveImageToDatabaseSampleApp.Shared;
+using Xamarin.Forms;
 
 namespace SaveImageToDatabaseSampleApp
 {
     public class LoadImageViewModel : BaseViewModel
     {
-        readonly WeakEventManager<string> _imageDownloadFailedEventManager = new WeakEventManager<string>();
-        readonly Lazy<HttpClient> _clientHolder = new Lazy<HttpClient>(CreateHttpClient);
+        readonly WeakEventManager<string> _imageDownloadFailedEventManager = new();
+        readonly Lazy<HttpClient> _clientHolder = new(CreateHttpClient);
 
         bool _isImageDownloading, _isImageVisible, _isLoadImageButtonEnabled;
         string _imageUrlEntryText = UrlConstants.ImageUrl;
         string _downloadImageButtonText = string.Empty;
         ImageSource? _downloadedImageSource;
-        ICommand? _loadImageButtonTapped, _clearImageButtonCommand, _initializeViewModelCommand;
 
-        public LoadImageViewModel() => ExecuteInitializeViewModelCommand().SafeFireAndForget();
+        public LoadImageViewModel()
+        {
+            LoadImageButtonCommand = new AsyncCommand(() => ExecuteLoadImageButtonCommand(DownloadImageButtonText, ImageUrlEntryText));
+            InitializeViewModelCommand = new AsyncCommand(ExecuteInitializeViewModelCommand);
+            ClearImageButtonCommand = new Command(ExecuteClearImageButtonCommand);
+            ExecuteInitializeViewModelCommand().SafeFireAndForget();
+        }
 
         public event EventHandler<string> ImageDownloadFailed
         {
@@ -35,9 +37,9 @@ namespace SaveImageToDatabaseSampleApp
             remove => _imageDownloadFailedEventManager.RemoveEventHandler(value);
         }
 
-        public ICommand LoadImageButtonCommand => _loadImageButtonTapped ??= new AsyncCommand(() => ExecuteLoadImageButtonCommand(DownloadImageButtonText, ImageUrlEntryText));
-        public ICommand InitializeViewModelCommand => _initializeViewModelCommand ??= new AsyncCommand(ExecuteInitializeViewModelCommand);
-        public ICommand ClearImageButtonCommand => _clearImageButtonCommand ??= new Command(ExecuteClearImageButtonCommand);
+        public ICommand LoadImageButtonCommand { get; }
+        public ICommand InitializeViewModelCommand { get; }
+        public ICommand ClearImageButtonCommand { get; }
 
         public bool IsImageDownloading
         {
@@ -75,9 +77,9 @@ namespace SaveImageToDatabaseSampleApp
             set => SetProperty(ref _isLoadImageButtonEnabled, value);
         }
 
-        List<DownloadedImageModel> DownloadedImageModelList { get; set; } = Enumerable.Empty<DownloadedImageModel>().ToList();
-
         HttpClient Client => _clientHolder.Value;
+
+        IReadOnlyList<DownloadedImageModel> DownloadedImageModelList { get; set; } = Array.Empty<DownloadedImageModel>();
 
         static HttpClient CreateHttpClient()
         {
@@ -162,26 +164,17 @@ namespace SaveImageToDatabaseSampleApp
                     DownloadedImageSource = downloadedImageModel.DownloadedImageAsImageStream;
                     AreImageAndClearButtonVisible = true;
 
-                    AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
-                    {
-                        { AnalyticsConstants.ImageDownloadSuccessful, imageUrl }
-                    });
+                    AnalyticsServices.Track(AnalyticsConstants.DownloadImage, AnalyticsConstants.ImageDownloadSuccessful, imageUrl);
                 }
                 else
                 {
-                    AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
-                    {
-                        { AnalyticsConstants.ImageDownloadFailed, imageUrl }
-                    });
+                    AnalyticsServices.Track(AnalyticsConstants.DownloadImage, AnalyticsConstants.ImageDownloadFailed, imageUrl);
                     OnImageDownloadFailed("Invalid Url");
                 }
             }
             catch (Exception e)
             {
-                AnalyticsServices.Track(AnalyticsConstants.DownloadImage, new Dictionary<string, string>
-                {
-                    { AnalyticsConstants.ImageDownloadFailed, imageUrl }
-                });
+                AnalyticsServices.Track(AnalyticsConstants.DownloadImage, AnalyticsConstants.ImageDownloadFailed, imageUrl);
                 OnImageDownloadFailed(e.Message);
             }
             finally

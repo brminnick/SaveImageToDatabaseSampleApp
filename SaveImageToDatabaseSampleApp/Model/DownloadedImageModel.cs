@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 
 using SQLite;
@@ -7,14 +8,14 @@ using Xamarin.Forms;
 
 namespace SaveImageToDatabaseSampleApp
 {
-    public class DownloadedImageModel
+    public record DownloadedImageModel
     {
 		public ImageSource? DownloadedImageAsImageStream => GetImageStream();
 
         [PrimaryKey]
-        public string ImageUrl { get; set; } = string.Empty;
+        public string ImageUrl { get; init; } = string.Empty;
 
-        public byte[]? DownloadedImageBlob { get; set; }
+        public byte[]? DownloadedImageBlob { get; init; }
 
         ImageSource? GetImageStream()
         {
@@ -34,4 +35,10 @@ namespace SaveImageToDatabaseSampleApp
             }
         }
     }
+}
+
+namespace System.Runtime.CompilerServices
+{
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public class IsExternalInit { }
 }

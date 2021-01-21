@@ -12,8 +12,7 @@ namespace SaveImageToDatabaseSampleApp
     {
         readonly static string _databasePath = Path.Combine(FileSystem.AppDataDirectory, $"{nameof(SaveImageToDatabaseSampleApp)}.db3");
 
-        static readonly Lazy<SQLiteAsyncConnection> _databaseConnectionHolder = new Lazy<SQLiteAsyncConnection>(() =>
-            new SQLiteAsyncConnection(_databasePath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache));
+        static readonly Lazy<SQLiteAsyncConnection> _databaseConnectionHolder = new(() => new(_databasePath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache));
 
         static SQLiteAsyncConnection DatabaseConnection => _databaseConnectionHolder.Value;
 

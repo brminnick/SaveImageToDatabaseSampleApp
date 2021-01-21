@@ -8,7 +8,7 @@ namespace SaveImageToDatabaseSampleApp
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        readonly WeakEventManager _propertyChangedEventManager = new WeakEventManager();
+        readonly WeakEventManager _propertyChangedEventManager = new();
 
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
@@ -28,7 +28,7 @@ namespace SaveImageToDatabaseSampleApp
             OnPropertyChanged(propertyname);
         }
 
-        void OnPropertyChanged([CallerMemberName]in string name = "") =>
+        void OnPropertyChanged([CallerMemberName] in string name = "") =>
             _propertyChangedEventManager.RaiseEvent(this, new PropertyChangedEventArgs(name), nameof(INotifyPropertyChanged.PropertyChanged));
     }
 }
