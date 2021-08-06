@@ -1,9 +1,6 @@
-# SaveImageToDatabaseSampleApp
+[![Xamarin](https://github.com/brminnick/SaveImageToDatabaseSampleApp/actions/workflows/mobile.yml/badge.svg)](https://github.com/brminnick/SaveImageToDatabaseSampleApp/actions/workflows/mobile.yml)
 
-|CI Tool                    |Build Status|
-|---------------------------|---|
-| App Center, iOS           | [![Build status](https://build.appcenter.ms/v0.1/apps/be84ba66-c311-4c33-b3cb-2eb798f2980f/branches/master/badge)](https://appcenter.ms) |
-| App Center, Android       | [![Build status](https://build.appcenter.ms/v0.1/apps/556cf4d9-08d2-4e69-8ba9-d2ed68aa6d20/branches/master/badge)](https://appcenter.ms)  |
+# SaveImageToDatabaseSampleApp
 
 This sample app demonstrates how to download an image from a url and save it to a local SQLite database.
 
