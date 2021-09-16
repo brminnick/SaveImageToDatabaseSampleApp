@@ -15,7 +15,7 @@
         <Folder Include="Constants\" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="sqlite-net-pcl" Version="1.8.0-beta" />
+        <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
         <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.3.0" />
