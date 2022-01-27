@@ -57,7 +57,7 @@
     <ItemGroup>
         <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
         <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.0" />
         <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.0" />
         <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="6.0.4" />
@@ -87,6 +87,7 @@
         <ProjectReference Include="..\SaveImageToDatabaseSampleApp\SaveImageToDatabaseSampleApp.csproj">
             <Project>{0684C175-1873-4EF3-A4CA-874673C938D8}</Project>
             <Name>SaveImageToDatabaseSampleApp</Name>
+            <ReferenceSourceTarget></ReferenceSourceTarget>
         </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
