@@ -23,7 +23,7 @@
         <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="6.0.5" />
         <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
         <PackageReference Include="Polly" Version="7.2.3" />
-        <PackageReference Include="Xamarin.CommunityToolkit.Markup" Version="2.0.2" />
+        <PackageReference Include="Xamarin.CommunityToolkit.Markup" Version="2.0.4" />
     </ItemGroup>
     <Import Project="..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\SaveImageToDatabaseSampleApp.Shared\SaveImageToDatabaseSampleApp.Shared.projitems')" />
 </Project>
