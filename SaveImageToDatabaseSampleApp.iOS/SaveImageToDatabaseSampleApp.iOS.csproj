@@ -98,7 +98,7 @@
     <ItemGroup>
         <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2478+927-sha.9f26f70d6-azdo.6239473" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515+946-sha.94acebbb4-azdo.6439792" />
         <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.1" />
         <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.1" />
         <PackageReference Include="Xamarin.TestCloud.Agent" Version="0.23.1" />
