@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
         <LangVersion>latest</LangVersion>
+        <BuildWithMSBuildOnMono>true</BuildWithMSBuildOnMono>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Data\" />
